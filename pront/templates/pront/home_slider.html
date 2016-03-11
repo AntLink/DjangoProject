@@ -1,0 +1,32 @@
+{% load admin_static pront widget humanize %}
+<!-- Master Slider -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="master-slider ms-skin-black-2 round-skin" id="masterslider">
+                {% for v in post %}
+                    {% if v.page != 'post' %}
+                        <div class="ms-slide blog-slider">
+                            <img src="{% static 'assets/plugins/master-slider/masterslider/style/blank.gif' %}" data-src="/media/image/{{ v.image }}" alt="{{ v.title }}"/>
+                            <span class="blog-slider-badge btn-u">{{ v.get_category_name_with_url_first|safe }}</span>
+                            <div class="ms-info"></div>
+                            <div class="blog-slider-title">
+
+                                <span class="blog-slider-posted">RP.{{ v.word_meta|show_setting_value:'price'|intcomma }},00</span>
+
+                                <h2><a href="{% url 'post-detail' v.get_category_slug_first v.slug %}">{{ v.title }}</a>
+                                </h2>
+                            </div>
+                            <div class="ms-thumb">
+                                <h4>{{ v.title }}</h4>
+                                <p>{{ v.content|striptags|truncatewords:10 }}</p>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+<!-- End Master Slider -->

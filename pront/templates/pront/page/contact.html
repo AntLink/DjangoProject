@@ -1,0 +1,63 @@
+{% load i18n pront admin_static suit_tags %}
+{#<div class="row margin-bottom-20">#}
+{#    <div id="map" class="map"></div>#}
+{#</div>#}
+<div class="row">
+    <div class="col-md-9">
+        <div id="map" class="map map-box map-box-space margin-bottom-40"></div>
+        {{ content|safe }}
+        {% if status %}
+            <div class="alert alert-success fade in">
+                <strong>Well done!</strong> {% trans 'Your message was successfully sent!' %}
+            </div>
+        {% endif %}
+        <form action="{% url 'add_message' %}" method="post" id="sky-form3" class="sky-form contact-style" novalidate="novalidate">
+            {% csrf_token %}
+
+            <fieldset class="no-padding">
+                <label>{% trans 'Name' %} <span class="color-red">*</span></label>
+                <div class="row sky-space-20">
+                    <div class="col-md-7 col-md-offset-0">
+                        <div class="{{ contact_form.name.errors|yesno:' state-error,' }}">
+                            {{ contact_form.name|add_class:'form-control' }}
+                        </div>
+                        <em for="name" class="invalid">{{ contact_form.name.errors|striptags }}</em>
+                    </div>
+                </div>
+
+                <label>{% trans 'Email' %} <span class="color-red">*</span></label>
+                <div class="row sky-space-20">
+                    <div class="col-md-7 col-md-offset-0">
+                        <div class="{{ contact_form.email.errors|yesno:' state-error,' }}">
+                            {{ contact_form.email|add_class:'form-control' }}
+                        </div>
+                        <em for="email" class="invalid">{{ contact_form.email.errors|striptags }}</em>
+                    </div>
+                </div>
+                <label>{% trans 'Subject' %} <span class="color-red">*</span></label>
+                <div class="row sky-space-20">
+                    <div class="col-md-7 col-md-offset-0">
+                        <div class="{{ contact_form.subject.errors|yesno:' state-error,' }}">
+                            {{ contact_form.subject|add_class:'form-control' }}
+                        </div>
+                        <em for="subject" class="invalid">{{ contact_form.subject.errors|striptags }}</em>
+                    </div>
+                </div>
+                <label>{% trans 'Message' %} <span class="color-red">*</span></label>
+                <div class="row sky-space-20">
+                    <div class="col-md-11 col-md-offset-0">
+                        <div class="{{ contact_form.message.errors|yesno:' state-error,' }}">
+                            {{ contact_form.message|add_class:'form-control' }}
+                        </div>
+                        <em for="message" class="invalid">{{ contact_form.message.errors|striptags }}</em>
+                    </div>
+                </div>
+                <p>
+                    <button type="submit" class="btn-u">{% trans 'Send Message' %}</button>
+                </p>
+            </fieldset>
+        </form>
+
+    </div>
+    <div class="col-md-3">{% widget_contact_sidebar %}</div>
+</div>

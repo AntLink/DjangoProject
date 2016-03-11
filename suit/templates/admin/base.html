@@ -1,0 +1,375 @@
+{% load admin_static %}{% load suit_tags %}{% load url from suit_compat %}<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{% block title %}{{ title }} | {{ 'ADMIN_NAME'|suit_conf }}{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% endblock %}"/>
+    <link href="{% static 'nifty/img/favicon.png' %}" rel="shortcut icon">
+    <!--Bootstrap Stylesheet [ REQUIRED ]-->
+    <link rel="stylesheet" type="text/css" href="{% static 'nifty/css/bootstrap.min.css' %}" media="all"/>
+    <!--Nifty Stylesheet [ REQUIRED ]-->
+    <link rel="stylesheet" type="text/css" href="{% static 'nifty/css/nifty.min.css' %}" media="all">
+    <link rel="stylesheet" type="text/css" href="{% static 'nifty/css/forms.css' %}" media="all">
+    <link rel="stylesheet" type="text/css" href="{% static 'nifty/css/style.css' %}" media="all">
+    <!--Font Awesome [ OPTIONAL ]-->
+    <link rel="stylesheet" type="text/css" href="{% static 'nifty/plugins/font-awesome/css/font-awesome.min.css' %}"
+          media="all">
+    <link rel="stylesheet" type="text/css" href="{% static 'nifty/plugins/bootstrap-select/bootstrap-select.min.css' %}"
+          media="all">
+
+    {% block extrastyle %}{% endblock %}
+    {% if LANGUAGE_BIDI %}
+        <link rel="stylesheet" type="text/css"
+              href="{% block stylesheet_rtl %}{% static "admin/css/rtl.css" %}{% endblock %}"/>
+    {% endif %}
+    <script type="text/javascript">window.__admin_media_prefix__ = "{% filter escapejs %}{% static "admin/" %}{% endfilter %}";</script>
+
+
+    <!--Page Load Progress Bar [ OPTIONAL ]-->
+    {#    <link href="{% static 'nifty/plugins/pace/pace.min.css' %}" rel="stylesheet">#}
+    {#    <script src="{% static 'nifty/plugins/pace/pace.min.js' %}"></script>#}
+    <!--jQuery [ REQUIRED ]-->
+    <script src="{% static 'nifty/js/jquery-2.1.1.min.js' %}"></script>
+    <script type="text/javascript">var Suit = {$: $.noConflict()};
+    if (!$) $ = Suit.$; </script>
+    <!--BootstrapJS [ RECOMMENDED ]-->
+    <script src="{% static 'nifty/js/bootstrap.min.js' %}"></script>
+    {% if 'SHOW_REQUIRED_ASTERISK'|suit_conf %}
+        <style type="text/css">
+            .required:after {
+                content: '*';
+                margin: 0 0 0 5px;
+                position: absolute;
+                color: #ccc;
+            }
+        </style>
+    {% endif %}
+    {% block extrahead %}{% endblock %}
+    {% block blockbots %}
+        <meta name="robots" content="NONE,NOARCHIVE"/>{% endblock %}
+</head>
+{% load i18n %}
+
+<body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}">
+<!-- Container -->
+{% block container %}
+    <div id="container" class="effect {{ admin_colpase_menu }} {{ admin_navbar_fixed }} {{ admin_mainnav_fixed }}">
+        {% block header %}
+            <!-- Start Header Navbar-->
+            {% if not is_popup %}
+                <header id="navbar">
+                    <div id="navbar-container" class="boxed">
+                        <!--Brand logo & name-->
+                        <div class="navbar-header">
+                            <a href="{% url 'admin:index' %}" class="navbar-brand">
+                                <img src="{% static 'nifty/img/logo.png' %}" class="brand-icon">
+
+                                <div class="brand-title">
+                                <span class="brand-text">
+                                    {% block branding %}{{ 'ADMIN_BRAND_NAME'|suit_conf }}{% endblock %}
+                                </span>
+                                </div>
+                            </a>
+                        </div>
+                        <!--End brand logo & name-->
+                        <!--Navbar Dropdown-->
+                        <div class="navbar-content clearfix">
+                            <ul class="nav navbar-top-links pull-left">
+                                <!--Navigation toogle button-->
+                                <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                                <li class="tgl-menu-btn">
+                                    <a class="mainnav-toggle" href="pages-blank.html#">
+                                        <i class="fa fa-navicon fa-lg"></i>
+                                    </a>
+                                </li>
+                                <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                                <!--End Navigation toogle button-->
+                            </ul>
+
+                            <ul class="nav navbar-top-links pull-right">
+                                {#                            {% block header_time %}#}
+                                {#                                <div class="header-content header-content-first">#}
+                                {#                                    <div class="header-column icon">#}
+                                {#                                        <i class="icon-time"></i>#}
+                                {#                                    </div>#}
+                                {#                                    <div class="header-column">#}
+                                {#                                        <span class="date"> {% suit_date %}</span><br>#}
+                                {#                                        <span class="time" id="clock">{% suit_time %}</span>#}
+                                {#                                    </div>#}
+                                {#                                </div>#}
+                                {#                            {% endblock %}#}
+                                {##}
+                                {#                            {% block header_content %}#}
+                                {#                                <!--<div class="header-content">#}
+                                {#                                  <div class="header-column icon">#}
+                                {#                                    <i class="icon-comment"></i>#}
+                                {#                                  </div>#}
+                                {#                                  <div class="header-column">#}
+                                {#                                    <a href="" class="grey"><b>2</b> new messages</a>#}
+                                {#                                  </div>#}
+                                {#                                </div>-->#}
+                                {#                            {% endblock %}#}
+
+                                <!--User dropdown-->
+                                {% if user.is_active and user.is_staff %}
+                                    {% block userlinks %}
+
+                                        {% url 'django-admindocs-docroot' as docsroot %}
+                                        {% if docsroot %}
+                                            <li>
+                                                <a href="{{ docsroot }}">
+                                                    {% trans 'Documentation' %}
+                                                </a>
+                                            </li>
+                                        {% endif %}
+
+                                        <li id="dropdown-user" class="dropdown">
+                                            {% block welcome-msg %}
+                                                <a href="#" data-toggle="dropdown" class="dropdown-toggle text-right">
+                                                <span class="pull-right">
+                                                    <img class="img-circle img-user media-object"
+                                                         src="{% static 'nifty/img/av1.png' %}" alt="Profile Picture">
+                                                </span>
+
+                                                    <div class="username hidden-xs">
+                                                        {% trans 'Welcome,' %}
+                                                        {% filter force_escape %}
+                                                            {% firstof user.first_name user.username %}
+                                                        {% endfilter %}
+                                                    </div>
+                                                </a>
+                                            {% endblock %}
+
+
+                                            <div class="dropdown-menu with-arrow panel-default">
+
+                                                <!-- User dropdown menu -->
+                                                <ul class="head-list">
+                                                    <li>
+                                                        <a href="{% url 'admin:password_change' %}">
+                                                            <i class="fa fa-lock fa-fw fa-lg"></i>
+                                                            {% trans 'Change password' %}
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="{% url 'admin:logout' %}">
+                                                            <i class="fa fa-power-off fa-fw fa-lg"></i>
+                                                            {% trans 'Log out' %}
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+
+                                        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                                        <!--End user dropdown-->
+                                    {% endblock %}
+                                {% endif %}
+                            </ul>
+                        </div>
+                        <!--End Navbar Dropdown-->
+                    </div>
+                </header>
+            {% endif %}
+            <!-- END Header Navbar-->
+        {% endblock %}
+
+
+        <div class="boxed {{ is_popup|yesno:'one-column,two-columns' }}">
+            <!--CONTENT CONTAINER-->
+            {% block content-center %}
+                <div id="content-container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            {% block messages %}
+                                {% if messages %}
+                                    {% for message in messages %}
+                                        <div class="alert alert-{% firstof message.tags 'info' %} fade in">
+                                            <button class="close" data-dismiss="alert">×</button>
+                                            {{ message }}
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                            {% endblock messages %}
+                            {% block error-messages %}{% endblock error-messages %}
+                            {% if not is_popup %}
+                                <!--Page Title-->
+                                <div id="page-title">
+                                    {% block pretitle %}{% endblock %}
+                                    {% block content_title %}
+                                        {% if title %}
+                                            <h1 class="page-header text-overflow">{{ title }}</h1>
+                                        {% endif %}
+                                    {% endblock %}
+                                    {% block searchbox %}{% endblock %}
+                                </div>
+                                <!--End page title-->
+
+                                <!--Breadcrumb-->
+                                {% block breadcrumbs %}
+                                    <ol class="breadcrumb">
+                                        <li>
+                                            <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+                                            {% if title %}
+                                                </li>
+                                                <li class="active">
+                                                {{ title }}
+                                            {% endif %}
+                                            </li>
+                                    </ol>
+                                {% endblock %}
+                            {% endif %}
+                            <!--End breadcrumb-->
+                        </div>
+                    </div>
+                    <!--Page content-->
+                    <div id="page-content" class="no-padding-top {% block coltype %}colM{% endblock %}">
+                        {% block content %}
+                            {% block object-tools %}{% endblock %}
+                            {{ content }}
+                        {% endblock %}
+                        {% block sidebar_content %}
+                            {% block sidebar %}{% endblock %}
+                        {% endblock %}
+                    </div>
+                    <!--End page content-->
+                </div>
+            {% endblock %}
+            <!--END CONTENT CONTAINER-->
+
+            <!--MAIN NAVIGATION-->
+            {% block content-left %}
+                {% if not is_popup %}
+                    <nav id="mainnav-container">
+                        <div id="mainnav">
+                            <!--Shortcut buttons-->
+                            <!--================================-->
+                            <div id="mainnav-shortcut"></div>
+                            <!--================================-->
+                            <!--End shortcut buttons-->
+                            {#                        {% block quick-search %}#}
+                            {#                            {% with 'SEARCH_URL'|suit_conf as search_url %}#}
+                            {#                                {% if search_url %}#}
+                            {#                                    <form class="form-search nav-quick-search" autocomplete="off" action="#}
+                            {##}
+                            {#                                            {% if '/' in search_url %}{{ search_url }}{% else %}{% url search_url %}{% endif %}"#}
+                            {#                                          method="GET">#}
+                            {#                                        <input type="text" name="q" class="input-medium search-query"#}
+                            {#                                               id="quick-search">#}
+                            {#                                        <i class="input-icon icon-search"></i>#}
+                            {#                                        <input type="submit" class="submit" value="">#}
+                            {#                                    </form>#}
+                            {#                                {% endif %}#}
+                            {#                            {% endwith %}#}
+                            {#                        {% endblock %}#}
+                            <!--Menu-->
+                            {% include 'suit/menu.html' %}
+                            <!--End Menu-->
+                        </div>
+                    </nav>
+                {% endif %}
+            {% endblock %}
+            <!--END MAIN NAVIGATION-->
+        </div>
+
+        <!-- FOOTER -->
+        <!--===================================================-->
+        <footer id="footer">
+            <!-- Visible when footer positions are fixed -->
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <div class="show-fixed pull-right">
+                <ul class="footer-list list-inline">
+                    <li>
+                        <p class="text-sm">SEO Proggres</p>
+
+                        <div class="progress progress-sm progress-light-base">
+                            <div style="width: 80%" class="progress-bar progress-bar-danger"></div>
+                        </div>
+                    </li>
+                    <li>
+                        <p class="text-sm">Online Tutorial</p>
+
+                        <div class="progress progress-sm progress-light-base">
+                            <div style="width: 80%" class="progress-bar progress-bar-primary"></div>
+                        </div>
+                    </li>
+                    <li>
+                        <button class="btn btn-sm btn-dark btn-active-success">Checkout</button>
+                    </li>
+                </ul>
+            </div>
+            <!-- Visible when footer positions are static -->
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <div class="hide-fixed pull-right pad-rgt">Currently v2.2</div>
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <!-- Remove the class name "show-fixed" and "hide-fixed" to make the content always appears. -->
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <p class="pad-lft">&#0169; 2015 Your Company</p>
+        </footer>
+        <!--===================================================-->
+        <!-- END FOOTER -->
+
+
+        <!-- SCROLL TOP BUTTON -->
+        <!--===================================================-->
+        <button id="scroll-top" class="btn"><i class="fa fa-chevron-up"></i></button>
+        <!--===================================================-->
+
+
+    </div>
+{% endblock %}
+
+{#{% if not is_popup %}#}
+{#    <!-- Sticky footer push -->#}
+{#    <div id="push"></div>#}
+{#{% endif %}#}
+
+
+{#{% block footer %}#}
+{#    {% if not is_popup %}#}
+{#        <div id="footer" class="footer">#}
+{#            <div class="content">#}
+{#                <div class="tools">#}
+{#                    {% block footer_links %}#}
+{#                        <a href="http://djangosuit.com/support/" target="_blank" class="icon"><i#}
+{#                                class="icon-question-sign"></i>Support</a>#}
+{#                        <a href="http://djangosuit.com/pricing/" target="_blank" class="icon"><i#}
+{#                                class="icon-bookmark"></i>Licence</a>#}
+{#                        <a href="http://github.com/darklow/django-suit/issues" target="_blank" class="icon"><i#}
+{#                                class="icon-comment"></i>Report a bug</a>#}
+{#                    {% endblock %}#}
+{#                </div>#}
+{##}
+{#                <div class="copyright">#}
+{#                    {% block copyright %}#}
+{#                        Copyright &copy; 2013 DjangoSuit.com<br>Developed by#}
+{#                        <a href="http://djangosuit.com" target="_blank">DjangoSuit.com</a>#}
+{#                    {% endblock %}#}
+{#                </div>#}
+{##}
+{#                <div class="branding">{% block footer_branding %}#}
+{#                    {% with 'ADMIN_NAME'|suit_conf as admin_name %}#}
+{#                        {{ admin_name }}#}
+{#                        {% if admin_name == 'Django Suit' %}#}
+{#                            v{{ 'VERSION'|suit_conf }}#}
+{#                        {% endif %}#}
+{#                    {% endwith %}#}
+{#                {% endblock %}</div>#}
+{#            </div>#}
+{#        </div>#}
+{#    {% endif %}#}
+{#{% endblock %}#}
+
+
+<!--Nifty Admin [ RECOMMENDED ]-->
+{#<script src="{% static 'nifty/js/nifty.min.js' %}"></script>#}
+<script src="{% static 'nifty/js/nifty.js' %}"></script>
+<script src="{% static 'nifty/plugins/bootstrap-select/bootstrap-select.min.js' %}"></script>
+<script src="{% static 'suit/js/suit.js' %}"></script>
+{% block extrajs %}{% endblock %}
+<script>
+    $('.selectpicker').selectpicker();
+    document.body.innerHTML.replace('2000', 'hi');
+</script>
+</body>
+</html>

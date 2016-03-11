@@ -1,0 +1,213 @@
+{% load i18n pront widget humanize admin_static %}
+
+{% for v in widget %}
+    {% if v.setting|show_setting_value:'display' == 'html' %}
+        {{ v.content|safe }}
+    {% endif %}
+    {% if v.setting|show_setting_value:'display' == 'list' %}
+        <div class="container-fluid">
+            {% for post in v.setting|show_setting_value:'category'|post_data:v.setting %}
+                {% if post.id|divisibleby:"2" %}
+                    <div class="row team-v7 no-gutter equal-height-columns">
+                        <div class="col-md-6 col-md-push-6 team-arrow-left">
+                            <div class="dp-table">
+                                <div class="equal-height-column dp-table-cell team-v7-in">
+                                    <span class="team-v7-name"><a href="{% url 'post-detail' post.get_category_slug_first post.slug %}">{{ post.title }}</a></span>
+                                    <span class="team-v7-position">Rp. {{ post.word_meta|show_setting_value:'price'|intcomma }}</span>
+                                    <p>{{ post.content|striptags|truncatewords:25 }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-md-pull-6 team-v7-img">
+                            <img class="img-responsive full-width equal-height-column" src="/media/image/{{ post.image }}" alt="">
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="row team-v7 no-gutter equal-height-columns">
+                        <div class="col-md-6 team-arrow-right">
+                            <div class="dp-table">
+                                <div class="equal-height-column dp-table-cell team-v7-in">
+                                    <span class="team-v7-name"><a href="{% url 'post-detail' post.get_category_slug_first post.slug %}">{{ post.title }}</a></span>
+                                    <span class="team-v7-position">Rp. {{ post.word_meta|show_setting_value:'price'|intcomma }}</span>
+                                    <p>{{ post.content|striptags|truncatewords:25 }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 team-v7-img">
+                            <img class="img-responsive full-width equal-height-column" src="/media/image/{{ post.image }}" alt="">
+                        </div>
+                    </div>
+                {% endif %}
+
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% if v.setting|show_setting_value:'display' == 'home_content' %}
+        <div class="parallax-counter-v4 parallaxBg" id="Popular-Tours" >
+            <div class="container">
+                {{ v.setting|show_setting_value:'description'|safe }}
+                <div class="row text-left">
+                    {% for post in v.setting|show_setting_value:'category'|post_data:v.setting %}
+
+                        <div class="col-md-4 col-xs-6 col-2xs-12 g-mb-30">
+                            <div class="popular-tours-item">
+                                <div class="img-wrapper"><img src="/media/image/thumbnail/512x288/{{ post.image }}" alt="{{ post.title }}" class="img-responsive"></div>
+                                <div class="popular-tours-item-info">
+                                    <div class="popular-tours-item-info-price">Mulai Dari <strong>Rp. {{ post.word_meta|show_setting_value:'price'|intcomma }}</strong></div>
+                                    <div class="popular-tours-item-info-inner">
+                                        <h3>
+                                            {{ v.setting|show_setting_value:'title' }}
+                                            {#                                            <em>{{ post.get_category_name_first }}</em>#}
+                                        </h3>
+                                        <p>{{ post.title }}</p>
+                                    </div>
+                                </div>
+                                <a href="{% url 'post-detail' post.get_category_slug_first post.slug %}" class="popular-tours-item__more">More</a>
+                            </div>
+                        </div>
+
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if v.setting|show_setting_value:'display' == 'home_content_2' %}
+        <!-- Our Service -->
+        <div class="our-service-section text-center g-heading-v8 equal-height-columns" id="Services">
+            <div class="container-fluid">
+                <div class="row">
+                    <!-- Service Info -->
+                    <div class="col-md-3 our-service-info equal-height-column">
+                        <h2 class="h2">
+                            {{ v.custom_name|safe }}
+                        </h2>
+                        {{ v.setting|show_setting_value:'description'|safe }}
+                    </div>
+                    <!-- End Service Info -->
+
+                    <div class="col-md-9 our-services-list-wrapper">
+                        <div class="our-services-list">
+                            {% for post in v.setting|show_setting_value:'category'|post_data:v.setting %}
+
+                                <div class="our-services-list-item equal-height-column">
+                                    <div class="img-wrapper img-wrapper--shadow"><img src="/media/image/thumbnail/512x288/{{ post.image }}" alt="ALT" class="img-reposnsive"></div>
+                                    <h3>{{ post.title }}</h3>
+                                    <p style="color: #fff;">{{ post.content|striptags|truncatewords:15 }}</p>
+                                    <a href="{% url 'post-detail' post.get_category_slug_first post.slug %}" class="btn-u btn-u-lg btn-u-red btn-u-upper">Selengkapnya</a>
+                                </div>
+
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Our Service -->
+    {% endif %}
+    {% if v.setting|show_setting_value:'display' == 'home_content_3' %}
+        <div class="bg-image-v2 bg-image-v2-dark parallaxBg1" style="background-position: 50% 42px;">
+            <div class="container">
+                {% if v.setting|show_setting_value:'show_title' == 'yes' %}
+                    <div class="headline-center-v2 headline-center-v2-dark margin-bottom-10">
+                        <h2 style=" color: {{ v.setting|show_setting_value:'border_color' }};">{{ v.custom_name }}</h2>
+                        <span style=" color: {{ v.setting|show_setting_value:'border_color' }};" class="bordered-icon"><i class="fa fa-th-large"></i></span>
+                    </div>
+                {% endif %}
+                <div class="owl-tour news-v2 margin-bottom-5 margin-top-20">
+                    {% for post in v.setting|show_setting_value:'category'|post_data:v.setting %}
+
+                        <div class="item easy-block-v1">
+                            <div class="easy-block-v1-badge rgba-blue">Rp. {{ post.word_meta|show_setting_value:'price'|intcomma }}</div>
+                            <a href="{% url 'post-detail' post.get_category_slug_first post.slug %}">
+                                <div class="img-wrapper img-wrapper--shadow">
+
+                                    <img class="img-responsive" src="/media/image/thumbnail/512x288/{{ post.image }}" alt="{{ post.title }}">
+
+                                </div>
+                            </a>
+
+                            <div class="news-v2-desc bg-color-white">
+                                <h3><a style="color: {{ v.setting|show_setting_value:'border_color' }};" class="hover-effect" href="{% url 'post-detail' post.get_category_slug_first post.slug %}">{{ post.title }}</a></h3>
+                                {#                                <p>{{ post.content|striptags|truncatewords:15 }}</p>#}
+                            </div>
+                        </div>
+
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+
+    {% endif %}
+
+    {% if v.setting|show_setting_value:'display' == 'home_content_4' %}
+        <!-- Our Tours Section -->
+        <div class="bg-image-v2 parallaxBg1" id="Our-Tours" style="background-position: 50% 42px;">
+            <div class="container">
+                {#                <h2 class="h2"><em class="block-name">Our Tours</em><br> <strong>We can</strong> offer</h2>#}
+                {#                <div class="our-tours-list-wrapper">#}
+                <div class="our-tours-list text-left">
+                    {% for post in v.setting|show_setting_value:'category'|post_data:v.setting %}
+                        <!-- Item 1 -->
+                        <div class="our-tours-list-item">
+                            <div class="img-wrapper img-wrapper--shadow"><img src="/media/image/thumbnail/512x288/{{ post.image }}" alt="ALT" class="img-reposnsive"></div>
+
+                            <ul class="list-inline star-vote">
+                                {% for i in post.word_meta|show_setting_value:'star'|get_range %}
+                                    <li><i class="g-color-default fa fa-star"></i></li>
+                                {% endfor %}
+                            </ul>
+                            <p style="color: #fff;">{{ post.title }}</p>
+                            <div class="our-tours-price">Rp.{{ post.word_meta|show_setting_value:'price'|intcomma }}</div>
+                            <a href="{% url 'post-detail' post.get_category_slug_first post.slug %}" class="our-tours-list-item__more">More</a>
+                        </div>
+                        <!-- End Item 1 -->
+                    {% endfor %}
+                </div>
+                {#                </div>#}
+            </div>
+        </div>
+        <!-- End Our Tours Section -->
+    {% endif %}
+    {% if v.setting|show_setting_value:'display' == 'home_content_5' %}
+        <div class="flat-testimonials bg-image-v1 parallaxBg" style="background-position: 50% 42px;">
+            <div class="container">
+                <div class="owl-carousel-v1 owl-work-v1 margin-bottom-40">
+                    {% if v.setting|show_setting_value:'show_title' == 'yes' %}
+                        <div class="headline-center headline-light">
+                            <h2 >{{ v.custom_name }}</h2>
+                            {{ v.setting|show_setting_value:'description'|safe }}
+                        </div>
+                    {% endif %}
+                    <div class="owl-recent-works-v1">
+                        {% for post in v.setting|show_setting_value:'category'|post_data:v.setting %}
+                            <div class="item bg-color-white">
+                                <a class="hover-effect" href="{% url 'post-detail' post.get_category_slug_first post.slug %}">
+                                    <div class="easy-block-v1">
+                                        <div class="star-vote pull-left" style="font-size:18px;margin-top: 10px; position: absolute; right: 5px; z-index: 1;">
+                                            {% for i in post.word_meta|show_setting_value:'star'|get_range %}
+                                                <i style="font-size: 18px; display: inline-table;" class="color-green fa fa-star"></i>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="easy-block-v1-badge rgba-blue">Rp.{{ post.word_meta|show_setting_value:'price'|intcomma }}</div>
+                                        <div class="img-wrapper img-wrapper--shadow">
+                                            <em class="overflow-hidden">
+                                                <img class="img-responsive " src="/media/image/thumbnail/512x288/{{ post.image }}" alt="{{ post.title }}">
+                                            </em>
+                                        </div>
+                                <span>
+                                    <strong >{{ post.title }}</strong>
+                                </span>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% endif %}
+{% endfor %}
+

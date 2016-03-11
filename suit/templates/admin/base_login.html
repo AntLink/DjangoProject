@@ -1,0 +1,74 @@
+{% load admin_static %}{% load suit_tags %}{% load url from suit_compat %}<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{% block title %}{{ title }} | {{ 'ADMIN_NAME'|suit_conf }}{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% endblock %}"/>
+    <link href="{% static 'nifty/img/favicon.png' %}" rel="shortcut icon">
+    <!--Bootstrap Stylesheet [ REQUIRED ]-->
+    <link rel="stylesheet" type="text/css" href="{% static 'nifty/css/bootstrap.min.css' %}" media="all"/>
+    <!--Nifty Stylesheet [ REQUIRED ]-->
+    <link rel="stylesheet" type="text/css" href="{% static 'nifty/css/nifty.min.css' %}" media="all">
+    <link rel="stylesheet" type="text/css" href="{% static 'nifty/css/forms.css' %}" media="all">
+    <link rel="stylesheet" type="text/css" href="{% static 'nifty/css/style.css' %}" media="all">
+    <!--Font Awesome [ OPTIONAL ]-->
+    <link rel="stylesheet" type="text/css" href="{% static 'nifty/plugins/font-awesome/css/font-awesome.min.css' %}"
+          media="all">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'nifty/css/demo/nifty-demo.min.css' %}" media="all">
+    <link rel="stylesheet" type="text/css" href="{% static 'nifty/plugins/bootstrap-select/bootstrap-select.min.css' %}"
+          media="all">
+    {% block extrastyle %}{% endblock %}
+    {% if LANGUAGE_BIDI %}
+        <link rel="stylesheet" type="text/css"
+              href="{% block stylesheet_rtl %}{% static "admin/css/rtl.css" %}{% endblock %}"/>
+    {% endif %}
+    <script type="text/javascript">window.__admin_media_prefix__ = "{% filter escapejs %}{% static "admin/" %}{% endfilter %}";</script>
+
+
+    <!--Page Load Progress Bar [ OPTIONAL ]-->
+    {#    <link href="{% static 'nifty/plugins/pace/pace.min.css' %}" rel="stylesheet">#}
+    {#    <script src="{% static 'nifty/plugins/pace/pace.min.js' %}"></script>#}
+    <!--jQuery [ REQUIRED ]-->
+    <script src="{% static 'nifty/js/jquery-2.1.1.min.js' %}"></script>
+    <script type="text/javascript">var Suit = {$: $.noConflict()};
+    if (!$) $ = Suit.$; </script>
+    <!--BootstrapJS [ RECOMMENDED ]-->
+    <script src="{% static 'nifty/js/bootstrap.min.js' %}"></script>
+    {% if 'SHOW_REQUIRED_ASTERISK'|suit_conf %}
+        <style type="text/css">.required:after {
+            content: '*';
+            margin: 0 0 0 5px;
+            position: absolute;
+            color: #ccc;
+        }</style>
+    {% endif %}
+    {% block extrahead %}{% endblock %}
+    {% block blockbots %}
+        <meta name="robots" content="NONE,NOARCHIVE"/>{% endblock %}
+</head>
+{% load i18n %}
+
+<body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}">
+<!-- Container -->
+{% block container %}
+    <div id="container" class="cls-container">
+        <!--Page content-->
+            {% block content %}
+                {{ content }}
+            {% endblock %}
+        </div>
+        <!--End page content-->
+{% endblock %}
+
+<!--Nifty Admin [ RECOMMENDED ]-->
+<script src="{% static 'nifty/js/nifty.min.js' %}"></script>
+<script src="{% static 'nifty/plugins/bootstrap-select/bootstrap-select.min.js' %}"></script>
+<script src="{% static 'suit/js/suit.js' %}"></script>
+{% block extrajs %}{% endblock %}
+<script>
+    $('.selectpicker').selectpicker();
+    document.body.innerHTML.replace('2000', 'hi');
+</script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+{% extends "admin/base_login.html" %}
+{% load i18n admin_static suit_tags %}
+{% load url from suit_compat %}
+
+{% block extrastyle %}{{ block.super }}
+    {#    <link rel="stylesheet" type="text/css" href="{% static "admin/css/login.css" %}" />#}
+{% endblock %}
+
+{% block bodyclass %}login{% endblock %}
+
+{% block content %}
+    <div id="bg-overlay" class="bg-img img-balloon">
+{#    <img class="bg-img img-balloon" src="{% static 'nifty/img/bg-img/bg-img-2.jpg' %}">#}
+    </div>
+    <div class="cls-header cls-header-lg">
+        <div class="cls-brand">
+            <img alt="{{ 'ADMIN_NAME'|suit_conf }}" src="{% static 'nifty/img/logo.png' %}" class="brand-icon">
+            <span class="brand-title">{{ 'ADMIN_NAME'|suit_conf }}</span>
+        </div>
+    </div>
+
+{#        {% if form.errors and not form.non_field_errors and not form.this_is_the_login_form.errors %}#}
+{#            <p class="errornote alert alert-error">#}
+{#                {% blocktrans count counter=form.errors.items|length %}Please correct the error below.{% plural %}Please#}
+{#                    correct the errors below.{% endblocktrans %}#}
+{#            </p>#}
+{#        {% endif %}#}
+{##}
+{#        {% if form.non_field_errors or form.this_is_the_login_form.errors %}#}
+{#            {% for error in form.non_field_errors|add:form.this_is_the_login_form.errors %}#}
+{#                <p class="errornote alert alert-error">#}
+{#                    {{ error }}#}
+{#                </p>#}
+{#            {% endfor %}#}
+{#        {% endif %}#}
+
+    <div class="cls-content">
+
+
+        <div class="cls-content-sm panel">
+            <form action="{{ app_path }}" method="post" id="login-form">
+                {% csrf_token %}
+                <div class="panel-body">
+                    <p class="pad-btm">{% trans 'Sign In to your account' %}</p>
+                    <div class="form-group{% if not form.this_is_the_login_form.errors and form.username.errors %} has-error{% endif %}">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                            {{ form.username|add_class:'form-control' }}
+                        </div>
+                        {#                        {% if not form.this_is_the_login_form.errors and form.username.errors %}#}
+                        {#                            <span class="help-block">{{ form.username.errors.as_text }}</span>#}
+                        {#                        {% endif %}#}
+                    </div>
+                    <div class="form-group{% if not form.this_is_the_login_form.errors and form.password.errors %} has-error{% endif %}">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="fa fa-asterisk"></i></div>
+                            {{ form.password|add_class:'form-control' }}
+                        </div>
+                        {#                        {% if not form.this_is_the_login_form.errors and form.password.errors %}#}
+                        {#                            <span class="help-block">{{ form.password.errors.as_text }}</span>#}
+                        {#                        {% endif %}#}
+                        <input type="hidden" name="this_is_the_login_form" value="1"/>
+                        <input type="hidden" name="next" value="{{ next }}"/>
+                    </div>
+                    {% url 'admin_password_reset' as password_reset_url %}
+                    {% if password_reset_url %}
+                        <div class="password-reset-link">
+                            <a href="{{ password_reset_url }}">{% trans 'Forgotten your password or username?' %}</a>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="panel-footer">
+                    <div class="text-right" style="margin-right: 5px;">
+                        <input type="submit" value="{% trans 'Sign In' %}" class="btn btn-info"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+        <script type="text/javascript">
+            document.getElementById('id_username').focus()
+        </script>
+    </div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% load i18n pront %}
+{% for v in widget %}
+    {% if v.name == 'Tag' %}
+        {% tag_widget v.setting v.type %}
+    {% endif %}
+    {% if v.name == 'Category' %}
+        {% category_widget v.setting v.type %}
+    {% endif %}
+    {% if v.name == 'Text' %}
+        {% html_widget v.content v.setting v.type %}
+    {% endif %}
+    {% if v.name == 'HTML' %}
+        {% html_widget v.content v.setting v.type %}
+    {% endif %}
+    {% if v.name == 'Recent Post' %}
+        {% recent_post_widget v.setting v.type %}
+    {% endif %}
+{% endfor %}

@@ -1,0 +1,79 @@
+{% load i18n pront widget humanize %}
+{% if show_title == 'yes' %}
+    {% if position == 'sidebar' %}
+        <div class="headline-v2 bg-color-light">
+            <h2>{{ title }}</h2>
+        </div>
+    {% else %}
+        <h2>{{ title }}</h2>
+    {% endif %}
+{% endif %}
+{% if display == 'media' %}
+    {% for v in data %}
+        <div class="blog-thumb blog-thumb-circle margin-bottom-15">
+            <div class="blog-thumb-hover">
+                <img class="rounded-x" src="/media/image/thumbnail/100x100/{{ v.image }}" alt="">
+                <a class="hover-grad" href="{% url 'post-detail' v.get_category_slug_first v.slug %}"><i class="fa fa-link"></i></a>
+            </div>
+            <div class="blog-thumb-desc">
+                <h3><a href="{% url 'post-detail' v.get_category_slug_first v.slug %}">{{ v.title }}</a></h3>
+                <ul class="blog-thumb-info">
+                    {% if v.page == 'hotel' %}
+                        <li>
+                            <small>
+                                {% for start in v.word_meta|show_setting_value:'star'|get_range %}
+                                    <i class="color-green fa fa-star"></i>
+                                {% endfor %}
+                            </small>
+                        </li>
+                        <li>
+                            <small>
+                                Rp.{{ v.word_meta|show_setting_value:'price'|intcomma }}
+                            </small>
+                        </li>
+                    {% endif %}
+                    {% if v.page == 'tour_package' %}
+                        <li>
+                            <small>
+                                Rp.{{ v.word_meta|show_setting_value:'price'|intcomma }}
+                            </small>
+                        </li>
+                    {% endif %}
+                    {% if v.page == 'post' %}
+                        <li>
+                            <small>
+                                {{ v.created_at|date }}
+                            </small>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}
+
+{% if display == 'list' %}
+    <ul class="list-unstyled blog-latest-posts margin-bottom-50">
+        {% for v in data %}
+            <li>
+                <h3><a href="{% url 'post-detail' v.get_category_slug_first v.slug %}">{{ v.title }}</a></h3>
+                <small>
+                    {% if v.page == 'hotel' %}
+                        {% for start in v.word_meta|show_setting_value:'star'|get_range %}
+                            <i class="color-green fa fa-star"></i>
+                        {% endfor %}
+                        /
+                        Rp.{{ v.word_meta|show_setting_value:'price'|intcomma }}
+                    {% endif %}
+                    {% if v.page == 'tour_package' %}
+                        Rp.{{ v.word_meta|show_setting_value:'price'|intcomma }}
+                    {% endif %}
+                    {% if v.page == 'post' %}
+                        {{ v.created_at|date }} / {{ v.tags_with_pront_url|safe }}
+                    {% endif %}
+                </small>
+                <p>{{ v.content|striptags|truncatewords:10 }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}

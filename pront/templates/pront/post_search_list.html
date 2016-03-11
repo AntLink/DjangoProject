@@ -1,0 +1,84 @@
+{% extends 'layout/index.html' %}
+{% load i18n pront admin_static %}
+{% block title %} {{ name|capfirst }}{% endblock %}
+{% block meta_description %}{{ description|striptags|truncatewords:25 }}{% endblock %}
+{% block meta_author %}{{ title }}{% endblock %}
+{% block keywords %}{{ name|lower }}{% endblock %}
+{% block head %}
+
+{% endblock %}
+{% block breadcrumbs %}
+    {% if post == 'post' %}
+        <!--=== Breadcrumbs ===-->
+        <div class="breadcrumbs breadcrumbs-light">
+            <div class="container">
+                <h1 class="pull-left">Search</h1>
+                <ul class="pull-right breadcrumb">
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li class="active">Search</li>
+                </ul>
+            </div>
+        </div><!--/breadcrumbs-->
+        <!--=== End Breadcrumbs ===-->
+    {% endif %}
+
+{% endblock %}
+{% block container %}
+    {% if post == 'post' %}
+        <div class="container content-sm" style="padding-top: 20px;">
+            <div class="row">
+                <div class="col-md-9">
+                    {% for v in data %}
+                        {% if v.type == 'post' %}
+                            <div class="row margin-bottom-20">
+                                <div class="col-sm-5 sm-margin-bottom-20">
+                                    <img class="img-responsive" src="/media/image/thumbnail/512x288/{{ v.image }}" alt="">
+                                </div>
+                                <div class="col-sm-7 news-v3">
+                                    <div class="news-v3-in-sm no-padding">
+                                        <h2><a href="{% url 'post-detail' v.get_category_slug_first v.slug %}">{{ v.title }}</a></h2>
+                                        <p>{{ v.content|striptags|truncatewords:35 }}</p>
+                                        <p><a href="{% url 'post-detail' v.get_category_slug_first v.slug %}">{% trans 'Read More' %}</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if is_paginated %}
+                        <ul class="pager pager-v4">
+                            <li class="previous">
+                                {% if page_obj.has_previous %}
+                                    <a class="rounded-3x" href="?q={{ q }}&&page={{ page_obj.previous_page_number }}">Previous</a>
+                                {% else %}
+                                    <a class="rounded-3x disabled-link" href="javascript:;">Previous</a>
+                                {% endif %}
+                            </li>
+
+
+                            <li class="page-amount">
+                                {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                            </li>
+
+                            <li class="next">
+                                {% if page_obj.has_next %}
+                                    <a class="rounded-3x" href="?q={{ q }}&&page={{ page_obj.next_page_number }}">Next</a>
+                                {% else %}
+                                    <a class="rounded-3x" href="javascript:;">Next</a>
+                                {% endif %}
+                            </li>
+
+                        </ul>
+                    {% endif %}
+                </div>
+                <div class="col-md-3">
+                    {% widget_sidebar %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

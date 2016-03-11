@@ -1,0 +1,148 @@
+{% extends 'layout/index.html' %}
+{% load admin_static pront %}
+
+{% block content %}
+        {% include 'layout/layerslider.html' %}
+{#    {% home_content %}#}
+{% endblock %}
+
+
+{% block cssplugins %}
+    <link rel="stylesheet" href="{% static 'plugins/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/line-icons/line-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/font-awesome/css/font-awesome.min.css' %}">
+    {#    <link rel="stylesheet" href="{% static 'plugins/owl-carousel/owl-carousel/owl.carousel.css' %}">#}
+    <link rel="stylesheet" href="{% static 'plugins/owl-carousel2/assets/owl.carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/layer-slider/layerslider/css/layerslider.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/image-hover/css/img-hover.css' %}">
+    <link rel="stylesheet" href="{% static 'travel/css/travel.style.css' %}">
+{% endblock %}
+{% block jsplugin %}
+    <script type="text/javascript" src="{% static 'plugins/back-to-top.js' %}"></script>
+    <script type="text/javascript" src="{% static 'plugins/smoothScroll.js' %}"></script>
+    {#    <script type="text/javascript" src="{% static 'plugins/owl-carousel/owl-carousel/owl.carousel.js' %}"></script>#}
+    <script type="text/javascript" src="{% static 'plugins/owl-carousel2/owl.carousel.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'plugins/layer-slider/layerslider/js/greensock.js' %}"></script>
+    <script type="text/javascript" src="{% static 'plugins/layer-slider/layerslider/js/layerslider.transitions.js' %}"></script>
+    <script type="text/javascript" src="{% static 'plugins/layer-slider/layerslider/js/layerslider.kreaturamedia.jquery.js' %}"></script>
+{% endblock %}
+{% block jspagelevel %}
+    <script type="text/javascript" src="{% static 'js/app.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/plugins/layer-slider.js' %}"></script>
+    {#    <script type="text/javascript" src="{% static 'js/plugins/style-switcher.js' %}"></script>#}
+    {#    <script type="text/javascript" src="{% static 'js/plugins/owl-carousel.js' %}"></script>#}
+    {#    <script type="text/javascript" src="{% static 'js/plugins/owl-recent-works.js' %}"></script>#}
+{% endblock %}
+{% block jsscript %}
+    <script type="text/javascript">
+        App.init();
+        LayerSlider.initLayerSlider();
+        $(".owl-recent-works-v1").owlCarousel({
+            dots: false,
+            nav: false,
+            loop: true,
+            autoplay: true,
+            stopOnHover: true,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                500: {
+                    items: 2
+                },
+                650: {
+                    items: 4
+                },
+                850: {
+                    items: 4
+                },
+                1024: {
+                    items: 4
+                },
+                1270: {
+                    items: 3
+                }
+            },
+        });
+        $(".owl-tour").owlCarousel({
+            dots: false,
+            margin: 15,
+            stopOnHover: true,
+            nav: false,
+            navText: [,],
+            loop: true,
+            autoplay: true,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                500: {
+                    items: 2
+                },
+                650: {
+                    items: 4
+                },
+                850: {
+                    items: 4
+                },
+                1024: {
+                    items: 4
+                },
+                1270: {
+                    items: 3
+                }
+            },
+        });
+        $('.our-services-list').owlCarousel({
+            loop: true,
+            margin: 0,
+            navText: [,],
+            nav: true,
+            dots: false,
+            autoplay: 3000,
+            navContainerClass: 'owl-buttons',
+            stopOnHover: true,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                500: {
+                    items: 2
+                },
+                700: {
+                    items: 3
+                }
+            },
+
+        });
+        $('.our-tours-list').owlCarousel({
+            loop: true,
+            margin: 15,
+            autoplay: true,
+            navText: [,],
+            nav: true,
+            dots: false,
+            navContainerClass: 'owl-buttons',
+            responsive: {
+                0: {
+                    items: 1
+                },
+                500: {
+                    items: 2
+                },
+                650: {
+                    items: 2
+                },
+                850: {
+                    items: 3
+                },
+                1024: {
+                    items: 3
+                },
+                1270: {
+                    items: 3
+                }
+            },
+        });
+    </script>
+{% endblock %}

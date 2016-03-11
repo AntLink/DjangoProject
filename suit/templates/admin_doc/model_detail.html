@@ -1,0 +1,69 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block extrahead %}
+    {{ block.super }}
+    <style type="text/css">
+        .module table {
+            width: 100%;
+        }
+
+        .module table p {
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+{% endblock %}
+
+{% block breadcrumbs %}
+    <ol class="breadcrumb">
+        <li><a href="{% url 'admin:index' %}">{% trans 'Home' %}</a></li>
+        <li><a href="{% url 'django-admindocs-docroot' %}">{% trans 'Documentation' %}</a></li>
+        <li><a href="{% url 'django-admindocs-models-index' %}">{% trans 'Models' %}</a></li>
+        <li class="active">{{ name }}</li>
+    </ol>
+{% endblock %}
+
+{% block title %}{% blocktrans %}Model: {{ name }}{% endblocktrans %}{% endblock %}
+
+{% block content_title %}<h1 class="page-header text-overflow">{{ name }}</h1>{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ summary }}</h3>
+                </div>
+                <div class="panel-body">
+
+                    {{ description }}
+
+                    <table class="table table-hover table-condensed">
+                        <thead>
+                        <tr>
+                            <th>{% trans 'Field' %}</th>
+                            <th>{% trans 'Type' %}</th>
+                            <th>{% trans 'Description' %}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for field in fields|dictsort:"name" %}
+                            <tr>
+                                <td>{{ field.name }}</td>
+                                <td>{{ field.data_type }}</td>
+                                <td>{{ field.verbose }}{% if field.help_text %} -
+                                    {{ field.help_text|safe }}{% endif %}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="panel-footer">
+                    <a class="btn btn-default" href="{% url 'django-admindocs-models-index' %}">
+                        {% trans 'Back to Model Documentation' %}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

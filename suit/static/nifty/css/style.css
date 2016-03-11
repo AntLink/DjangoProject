@@ -1,0 +1,53 @@
+
+.panel-body {
+    padding: 15px !important;
+}
+
+.panel-title {
+    padding: 0 15px 0 15px !important;
+}
+
+.panel > .panel-heading:after, .panel.panel-colorful > .panel-heading:after {
+    left: 15px !important;
+    right: 15px !important;
+}
+
+.action-checkbox-column {
+    width: 20px;
+}
+
+.related-widget-wrapper {
+    width: 100%;
+}
+
+#container .table tfoot tr th {
+    font-size: 1.05em;
+    font-weight: 600;
+    border-top: 2px solid rgba(0, 0, 0, 0.14);
+}
+
+.panel {
+    box-shadow: none !important;
+    border: 1px solid #cdd6e1 !important;
+}
+
+/*.panel-body {*/
+/*padding: 13px 13px !important;*/
+/*}*/
+
+.category{
+        margin-left: -40px;
+}
+.category li {
+    list-style: none;
+}
+
+#redactor-modal header {
+    padding: 15px 20px 5px 20px !important;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#redactor-modal section {
+    padding: 10px 20px 20px 20px !important;
+}

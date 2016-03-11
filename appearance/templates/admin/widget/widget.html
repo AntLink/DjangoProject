@@ -1,0 +1,368 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_static admin_modify suit_tags admin_urls menu %}
+{% load url from suit_compat %}
+{% block extrahead %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% static 'nifty/plugins/jquery-cookie/jquery.cookie.js' %}"></script>
+    <script type="text/javascript" src="{% static 'nifty/plugins/dropzone/src/dropzone.js' %}"></script>
+    <script type="text/javascript" src="{% static 'nifty/plugins/freewall/freewall.js' %}"></script>
+    {{ media }}
+{% endblock %}
+{% block extrastyle %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'nifty/plugins/nestable/netstable.css' %}" media="all">
+    <link rel="stylesheet" type="text/css" href="{% static 'nifty/plugins/dropzone/dropzone-old.css' %}" media="all">
+{% endblock %}
+{% block extrajs %}
+    {{ block.super }}
+    <script src="{% static 'nifty/plugins/slimScroll/jquery.slimscroll.min.js' %}"></script>
+    <script src="{% static 'nifty/plugins/nestable/jquery.nestable.js' %}"></script>
+    <script type="application/javascript">
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie != '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        $('.update-text-widget').on('click', function () {
+            var parent = $(this).parent();
+            var data = $(parent).find('input').serialize() + '&' + $(parent).find('textarea').serialize();
+            var text = $(parent).find('input[name=text]').val();
+            $(this).parent().parent().find('.menu-text').text(text);
+            console.log(data);
+            $.ajax({
+                dataType: "json",
+                cache: false,
+                url: "{% url opts|admin_urlname:'update_text_widget' %}",
+                method: 'post',
+                data: data,
+                success: $.proxy(function (data) {
+
+                }, this)
+            });
+        });
+
+        $('.update-tag-widget').on('click', function () {
+            var parent = $(this).parent();
+            var data = $(parent).find('input').serialize() + '&' + $(parent).find('select').serialize()  + '&' + $(parent).find('textarea').serialize();
+            var text = $(parent).find('input[name=text]').val();
+            $(this).parent().parent().find('.menu-text').text(text);
+            console.log(data);
+            $.ajax({
+                dataType: "json",
+                cache: false,
+                url: "{% url opts|admin_urlname:'update_tag_widget' %}",
+                method: 'post',
+                data: data,
+                success: $.proxy(function (data) {
+
+                }, this)
+            });
+        });
+
+        $('.update-cat-widget').on('click', function () {
+            var parent = $(this).parent();
+            var data = $(parent).find('input').serialize() + '&' + $(parent).find('select').serialize()  + '&' + $(parent).find('textarea').serialize();
+            var text = $(parent).find('input[name=text]').val();
+            $(this).parent().parent().find('.menu-text').text(text);
+            console.log(data);
+            $.ajax({
+                dataType: "json",
+                cache: false,
+                url: "{% url opts|admin_urlname:'update_category_widget' %}",
+                method: 'post',
+                data: data,
+                success: $.proxy(function (data) {
+
+                }, this)
+            });
+        });
+
+        $('.update-post-widget').on('click', function () {
+            var parent = $(this).parent();
+            var data = $(parent).find('input').serialize() + '&' + $(parent).find('select').serialize()  + '&' + $(parent).find('textarea').serialize();
+            var text = $(parent).find('input[name=text]').val();
+            $(this).parent().parent().find('.menu-text').text(text);
+            console.log(data);
+            $.ajax({
+                dataType: "json",
+                cache: false,
+                url: "{% url opts|admin_urlname:'update_post_widget' %}",
+                method: 'post',
+                data: data,
+                success: $.proxy(function (data) {
+
+                }, this)
+            });
+        });
+
+        $('.update-html-widget').on('click', function () {
+            var parent = $(this).parent();
+            var data = $(parent).find('input').serialize() + '&' + $(parent).find('textarea').serialize();
+            var text = $(parent).find('input[name=text]').val();
+            $(this).parent().parent().find('.menu-text').text(text);
+            console.log(data);
+            $.ajax({
+                dataType: "json",
+                cache: false,
+                url: "{% url opts|admin_urlname:'update_html_widget' %}",
+                method: 'post',
+                data: data,
+                success: $.proxy(function (data) {
+
+                }, this)
+            });
+        });
+
+        $('.delete-widget').on('click', function () {
+            var csrftoken = getCookie('csrftoken');
+            wid = $(this).parent().find('input[name=id]').attr('value');
+            $.ajax({
+                dataType: "json",
+                cache: false,
+                url: "{% url opts|admin_urlname:'delete_widget' %}",
+                method: 'post',
+                data: {'id': wid, 'csrfmiddlewaretoken': csrftoken},
+                success: $.proxy(function (data) {
+
+                }, this)
+            });
+            var parents = $(this).parent().parent();
+            {#            $(parents).fadeOut('slow');#}
+            $(parents).remove();
+        });
+
+
+        var csrftoken = getCookie('csrftoken');
+        function sidebar() {
+            var data = window.JSON.stringify($('#sidebar-nestable').nestable('serialize'));
+            $.ajax({
+                dataType: "json",
+                cache: false,
+                url: "{% url opts|admin_urlname:'update_sidebar_position' %}",
+                method: 'post',
+                data: {'csrfmiddlewaretoken': csrftoken, 'data': data, 'parent': "{{ id }}"},
+                success: $.proxy(function (data) {
+
+                }, this)
+            });
+        }
+        function footer1() {
+            var data = window.JSON.stringify($('#footer1-nestable').nestable('serialize'));
+            $.ajax({
+                dataType: "json",
+                cache: false,
+                url: "{% url opts|admin_urlname:'update_footer1_position' %}",
+                method: 'post',
+                data: {'csrfmiddlewaretoken': csrftoken, 'data': data, 'parent': "{{ id }}"},
+                success: $.proxy(function (data) {
+
+                }, this)
+            });
+        }
+        function footer2() {
+            var data = window.JSON.stringify($('#footer2-nestable').nestable('serialize'));
+            $.ajax({
+                dataType: "json",
+                cache: false,
+                url: "{% url opts|admin_urlname:'update_footer2_position' %}",
+                method: 'post',
+                data: {'csrfmiddlewaretoken': csrftoken, 'data': data, 'parent': "{{ id }}"},
+                success: $.proxy(function (data) {
+
+                }, this)
+            });
+        }
+        function footer3() {
+            var data = window.JSON.stringify($('#footer3-nestable').nestable('serialize'));
+            $.ajax({
+                dataType: "json",
+                cache: false,
+                url: "{% url opts|admin_urlname:'update_footer3_position' %}",
+                method: 'post',
+                data: {'csrfmiddlewaretoken': csrftoken, 'data': data, 'parent': "{{ id }}"},
+                success: $.proxy(function (data) {
+
+                }, this)
+            });
+        }
+        function footer4() {
+            var data = window.JSON.stringify($('#footer4-nestable').nestable('serialize'));
+            $.ajax({
+                dataType: "json",
+                cache: false,
+                url: "{% url opts|admin_urlname:'update_footer4_position' %}",
+                method: 'post',
+                data: {'csrfmiddlewaretoken': csrftoken, 'data': data, 'parent': "{{ id }}"},
+                success: $.proxy(function (data) {
+
+                }, this)
+            });
+        }
+
+        function home_content() {
+            var data = window.JSON.stringify($('#home-content-nestable').nestable('serialize'));
+            $.ajax({
+                dataType: "json",
+                cache: false,
+                url: "{% url opts|admin_urlname:'update_home_content_position' %}",
+                method: 'post',
+                data: {'csrfmiddlewaretoken': csrftoken, 'data': data, 'parent': "{{ id }}"},
+                success: $.proxy(function (data) {
+
+                }, this)
+            });
+        }
+
+        function sidebar_contact() {
+            var data = window.JSON.stringify($('#contact-nestable').nestable('serialize'));
+            $.ajax({
+                dataType: "json",
+                cache: false,
+                url: "{% url opts|admin_urlname:'update_contact_sidebar_position' %}",
+                method: 'post',
+                data: {'csrfmiddlewaretoken': csrftoken, 'data': data, 'parent': "{{ id }}"},
+                success: $.proxy(function (data) {
+
+                }, this)
+            });
+        }
+
+        $('#sidebar-nestable').nestable({maxDepth: 1}).on('change', function () {
+            sidebar();
+            footer1();
+            footer2();
+            footer3();
+            footer4();
+            home_content();
+            sidebar_contact()
+        });
+
+        $('#footer1-nestable').nestable({maxDepth: 1}).on('change', function () {
+            footer1();
+            footer2();
+            footer3();
+            footer4();
+            sidebar();
+            home_content();
+            sidebar_contact();
+        });
+        $('#footer2-nestable').nestable({maxDepth: 1}).on('change', function () {
+            footer2();
+            footer4();
+            footer3();
+            footer1();
+            sidebar();
+            home_content();
+            sidebar_contact();
+        });
+        $('#footer3-nestable').nestable({maxDepth: 1}).on('change', function () {
+            footer3();
+            footer4();
+            footer2();
+            footer1();
+            sidebar();
+            home_content();
+            sidebar_contact();
+        });
+        $('#footer4-nestable').nestable({maxDepth: 1}).on('change', function () {
+            footer4();
+            footer3();
+            footer2();
+            footer1();
+            sidebar();
+            home_content();
+            sidebar_contact();
+        });
+
+        $('#home-content-nestable').nestable({maxDepth: 1}).on('change', function () {
+            home_content();
+            footer4();
+            footer3();
+            footer2();
+            footer1();
+            sidebar();
+            sidebar_contact();
+        });
+
+        $('#contact-nestable').nestable({maxDepth: 1}).on('change', function () {
+            sidebar_contact();
+            footer4();
+            footer3();
+            footer2();
+            footer1();
+            sidebar();
+            home_content();
+        });
+
+    </script>
+{% endblock %}
+
+{% block breadcrumbs %}
+    <ol class="breadcrumb">
+        <li>
+            <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+        </li>
+        <li>
+            <a href="{% url 'admin:app_list' app_label=opts.app_label %}">
+                {% firstof opts.app_config.verbose_name app_label|capfirst|escape %}
+            </a>
+        </li>
+        <li class="active">
+            {{ opts.verbose_name_plural|capfirst }}
+        </li>
+    </ol>
+{% endblock %}
+
+{% block error-messages %}
+    {% if errors %}
+        <div class="alert  alert-danger fade in">
+            <button class="close" data-dismiss="alert">×</button>
+            {% blocktrans count counter=errors|length %}
+                Please correct the error below.
+            {% plural %}
+                Please correct the errors below.
+            {% endblocktrans %}
+            {{ adminform.form.non_field_errors }}
+        </div>
+    {% endif %}
+{% endblock error-messages %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="row">
+                <div class="col-sm-6">
+                    {% include 'admin/widget/text_widget.html' %}
+                    {% include 'admin/widget/tag_widget.html' %}
+                    {% include 'admin/widget/link_widget.html' %}
+                </div>
+                <div class="col-sm-6">
+                    {% include 'admin/widget/html_widget.html' %}
+                    {% include 'admin/widget/category_widget.html' %}
+                    {% include 'admin/widget/recent_post_widget.html' %}
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-4">
+            {% include 'admin/widget/sidebar_widget_position.html' %}
+            {% include 'admin/widget/footer1_widget_position.html' %}
+            {% include 'admin/widget/footer2_widget_position.html' %}
+            {% include 'admin/widget/footer3_widget_position.html' %}
+            {% include 'admin/widget/footer4_widget_position.html' %}
+
+            {% include 'admin/widget/home/home_content_widget.html' %}
+            {% include 'admin/widget/contact/contact_sidebar_widget.html' %}
+        </div>
+    </div>
+{% endblock %}

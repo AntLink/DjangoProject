@@ -1,0 +1,12 @@
+{% load i18n pront %}
+
+{% for v in data %}
+    <li {% if v.parent_id != default and v.id|count_nav != 0 %}class="topbar-submenu"{% endif %}>
+        <a href="{% if v.slug == 'home' %}{% url 'home' %}{% else %}{% if v.slug|fine_url != 0 or v.slug == '#' %}{{ v.slug }}{% else %}{% url 'page' v.slug %}{% endif %}{% endif %}" >{{ v.name }}</a>
+        {% if v.id|count_nav != 0 %}
+            <ul {% if v.parent_id == default %} class="topbar-dropdown" {% endif %} {% if v.parent_id != default and v.id|count_nav != 0 %}class="topbar-submenu-in"{% endif %}>
+                {% topbar v.id|load_topbar_by_parent_id default %}
+            </ul>
+        {% endif %}
+    </li>
+{% endfor %}

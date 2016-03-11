@@ -1,0 +1,76 @@
+{% load i18n admin_static admin_modify suit_tags admin_urls menu %}
+{% load url from suit_compat %}
+<!-- Start widget Recent Post-->
+<div class="panel">
+    <div class="panel-heading">
+        <div class="panel-control">
+            <button class="btn btn-default" data-target="#panel-collapse-widget-post" data-toggle="collapse" aria-expanded="true">
+                <i class="fa fa-chevron-down"></i>
+            </button>
+        </div>
+        <h3 class="panel-title">{% trans 'Recent Post' %}</h3>
+    </div>
+
+    <form method="post" action="{% url opts|admin_urlname:'add_recent_post' %}">
+        <div id="panel-collapse-widget-post" class="collapse in" aria-expanded="true">
+            <div class="panel-body">
+                {% csrf_token %}
+                <div class="form-group {{ postform.title.errors|yesno:' has-error,' }}">
+                    <label class="control-label">{% trans 'Title' %}</label>
+                    {{ postform.title|add_class:'form-control input-sm' }}
+                    <span class="help-block">{{ postform.title.errors|striptags }}</span>
+                </div>
+
+                <div class="form-group {{ postform.limit.errors|yesno:' has-error,' }}">
+                    <label class="control-label">{% trans 'Limit' %}</label>
+                    {{ postform.limit|add_class:'form-control input-sm' }}
+                    <span class="help-block">{{ postform.limit.errors|striptags }}</span>
+                </div>
+
+                <div class="form-group {{ postform.border_color.errors|yesno:' has-error,' }}">
+                    <label class="control-label">{% trans 'Border Color' %}</label>
+                    {{ postform.border_color|add_class:'form-control input-sm' }}
+                    <span class="help-block">{{ postform.border_color.errors|striptags }}</span>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">{% trans 'Display' %}</label>
+                    <br>
+                    {{ postform.display|add_class:'selectpicker' }}
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">{% trans 'Category' %}</label>
+                    <br>
+                    <select class="selectpicker" id="id_display" name="category" style="display: none;">
+                        <option value="all">{% trans 'All Categories' %}</option>
+                        {% for cat in category %}
+                            <option value="{{ cat.slug }}">{{ cat.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">{% trans 'Position' %}</label>
+                    <br>
+                    {{ postform.position|add_class:'selectpicker' }}
+                </div>
+                <div class="form-group {{ postform.description.errors|yesno:' has-error,' }}">
+                    <label class="control-label">{% trans 'Description' %}</label>
+                    {{ postform.description|add_class:'form-control' }}
+                    <span class="help-block">{{ postform.description.errors|striptags }}</span>
+                </div>
+                <div class="form-group">
+                    <label style="margin-top: 14px" class="form-checkbox form-normal">
+                        {{ postform.show_title }}
+                    </label>
+                    <span class="text-muted">{% trans 'Show title' %}</span>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <button class="btn btn-sm btn-info btn-labeled icon-sm fa fa-plus" type="submit" name="_continue">{% trans 'Add' %}</button>
+            </div>
+        </div>
+    </form>
+</div>
+<!-- End widget Recent Post-->

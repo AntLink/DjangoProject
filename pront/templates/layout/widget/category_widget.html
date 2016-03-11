@@ -1,0 +1,28 @@
+{% load i18n pront %}
+{% if show_title == 'yes' %}
+    {% if position == 'sidebar' %}
+        <div class="headline-v2 bg-color-light">
+            <h2>{{ title }}</h2>
+        </div>
+    {% else %}
+        <div class="headline">
+            <h2>{{ title }}</h2>
+        </div>
+    {% endif %}
+{% endif %}
+{% if display == 'tree' %}
+    <ul class="list-group">
+        {% for tag in taxs %}
+            <li class="list-group-item">
+                <a href="{% url 'tags' tag.slug %}" style="margin-left: {{ tag.level|count_cat_tree }}px;">#{{ tag.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+{% if display == 'list' %}
+    <ul class="list-group">
+        {% for tag in taxs %}
+            <li class="list-group-item"><a href="{% url 'tags' tag.slug %}">#{{ tag.name }}</a></li>
+        {% endfor %}
+    </ul>
+{% endif %}

@@ -1,0 +1,110 @@
+{% extends 'layout/index.html' %}
+{% load i18n pront widget admin_static humanize %}
+{% block title %} {{ object.title }}{% endblock %}
+{% block meta_description %}{{ object.content|striptags|truncatewords:25 }}{% endblock %}
+{% block meta_author %}{{ object.user.first_name }} {{ object.user.last_name }}{% endblock %}
+{% block keywords %}{{ object.tags|lower }}, {{ object.categories|lower }}{% endblock %}
+
+{% block breadcrumbs %}
+    {% if object.layout != 'none' %}
+        {% if object.page == 'post' %}
+            <div class="breadcrumbs breadcrumbs-light">
+                <div class="container">
+                    <h1 class="pull-left">{{ name|capfirst }}</h1>
+                    <ul class="pull-right breadcrumb">
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li class="active">{{ name|capfirst }}</li>
+                    </ul>
+                </div>
+            </div>
+        {% endif %}
+        {% if object.page == 'hotel' or object.page == 'tour_package' or object.page == 'rentcar' or object.page == 'cruiser' %}
+            {#        <div class="breadcrumbs-v1" style=" background: url('/media/image/{{ object.image }}') center no-repeat; background-size: 100%">#}
+            <div class="breadcrumbs-v1">
+                <div class="container">
+                    <span>{{ name|capfirst }}</span>
+                    <h1>{{ object.title }}</h1>
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
+{% endblock %}
+{% block content %}
+    {% if object.page == 'hotel' %}
+        {% if object.layout != 'none' %}
+            {% include 'pront/post/hotel.html' %}
+        {% else %}
+            {{ object.content|safe }}
+        {% endif %}
+    {% endif %}
+    {% if object.page == 'tour_package' %}
+        {% if object.layout != 'none' %}
+            {% include 'pront/post/tour.html' %}
+        {% else %}
+            {{ object.content|safe }}
+        {% endif %}
+    {% endif %}
+    {% if object.page == 'rentcar' %}
+        {% if object.layout != 'none' %}
+            {% include 'pront/post/rentcar.html' %}
+        {% else %}
+            {{ object.content|safe }}
+        {% endif %}
+    {% endif %}
+    {% if object.page == 'post' %}
+        {% if object.layout != 'none' %}
+            {% include 'pront/post/info.html' %}
+        {% else %}
+            {{ object.content|safe }}
+        {% endif %}
+    {% endif %}
+    {% if object.page == 'umrah' %}
+        {% if object.layout != 'none' %}
+            {% include 'pront/post/info.html' %}
+        {% else %}
+            {{ object.content|safe }}
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block cssplugins %}
+    <link rel="stylesheet" href="{% static 'plugins/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/cube-portfolio/cubeportfolio/css/cubeportfolio.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/cube-portfolio/cubeportfolio/custom/custom-cubeportfolio.css' %}">
+    <link rel="stylesheet" href="{% static 'css/pages/pricing/pricing_v1.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/soap-icon/css/soap-icon.css' %}">
+
+{% endblock %}
+{% block jsplugin %}
+    <script type="text/javascript" src="{% static 'plugins/back-to-top.js' %}"></script>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+    <script type="text/javascript" src="{% static 'plugins/gmap/gmap.js' %}"></script>
+    <script type="text/javascript" src="{% static 'plugins/cube-portfolio/cubeportfolio/js/jquery.cubeportfolio.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/plugins/cube-portfolio/cube-portfolio-4.js' %}"></script>
+
+{% endblock %}
+
+{% block jspagelevel %}
+    <script type="text/javascript" src="{% static 'js/app.js' %}"></script>
+{% endblock %}
+{% block jsscript %}
+    <script type="text/javascript">
+        App.init();
+        {% if object.word_meta|show_setting_value:'latitude' != '' and object.word_meta|show_setting_value:'longitude' != '' %}
+            new GMaps({
+                div: '#map',
+                lat: '{{ object.word_meta|show_setting_value:'latitude' }}',
+                lng: '{{ object.word_meta|show_setting_value:'longitude' }}',
+                zoom: 15,
+            }).addMarker({
+                lat: '{{ object.word_meta|show_setting_value:'latitude' }}',
+                lng: '{{ object.word_meta|show_setting_value:'longitude' }}',
+                title: '{{ object.word_meta|show_setting_value:'address' }}',
+                infoWindow: {
+                    content: '<h5>{{ object.title }}</h5>' +
+                    '<p>{{ object.word_meta|show_setting_value:'address' }}</p>'
+                },
+            });
+        {% endif %}
+    </script>
+{% endblock %}

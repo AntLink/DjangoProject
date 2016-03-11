@@ -1,0 +1,69 @@
+{% load i18n menu %}
+
+{% for v in data %}
+    <li class="dd-item dd3-item" data-id="{{ v.id }}" data-parent="{{ v.parent_id }}">
+        <div class="dd-handle dd3-handle"></div>
+        <div class="dd3-content">
+            <span class="menu-text">{{ v.name }}</span>
+            <a href="javascript:;" class="collapsed pull-right" data-target="#panel-collapse-page-{{ v.id }}" data-toggle="collapse" aria-expanded="false"></a>
+            <span class="text-sm pull-right pad-rgt" style="color: #b7b7b7; font-weight: normal; margin-top: 2px">{% trans v.menu_type %}</span>
+        </div>
+        <div class="collapse dd3-edit-col pad-all text-sm" id="panel-collapse-page-{{ v.id }}" aria-expanded="true" style="width: 100%;">
+            {% if v.menu_type == 'Custom link' %}
+                {% csrf_token %}
+                <input type="hidden" name="customid" value="{{ v.id }}">
+                <input type="hidden" name="id" value="{{ v.id }}">
+                <div class="form-group" style="width: 100%">
+                    <label class="control-label">{% trans 'Link' %}</label>
+                    <input name="url" value="{{ v.slug }}" type="text" class="form-control input-sm" style="width: 100%">
+                </div>
+
+                <div class="form-group" style="width: 100%">
+                    <label class="control-label">{% trans 'Link Text' %}</label>
+                    <input name="text" value="{{ v.name }}" type="text" class="form-control input-sm" style="width: 100%">
+                </div>
+                <button class="delete-menu mar-top btn btn-sm btn-danger btn-labeled icon-sm fa fa-trash" type="button" name="_continue">{% trans 'Delete' %}</button>
+                <button class="update-custom-menu mar-top btn btn-sm btn-info btn-labeled icon-sm fa fa-check" type="button" name="_continue">{% trans 'Save' %}</button>
+
+            {% endif %}
+            {% if v.menu_type == 'Category' %}
+                {% csrf_token %}
+                <input type="hidden" name="catid" value="{{ v.id }}">
+                <input type="hidden" name="id" value="{{ v.id }}">
+                <div class="form-group" style="width: 100%">
+                    <label class="control-label">{% trans 'Name' %}</label>
+                    <input type="text" name="text" value="{{ v.name }}" class="form-control input-sm" style="width: 100%">
+                </div>
+                <div class="form-group" style="width: 100%">
+                    <label class="control-label">{% trans 'Menu type' %}</label><br>
+                    <select name="menutype" class="selectpicker">
+                        <option>-- {% trans 'Menu type' %} --</option>
+                        <option value="menu_page" {% if v.type == 'menu_page' %}selected{% endif %}>Menu Page</option>
+                        <option value="menu_post" {% if v.type == 'menu_post' %}selected{% endif %}>Menu Post</option>
+                        <option value="menu_archives" {% if v.type == 'menu_archives' %}selected{% endif %}>Menu Archives</option>
+                        <option value="menu_archives_and_post" {% if v.type == 'menu_archives_and_post' %}selected{% endif %}>Menu Archives And Post</option>
+                    </select>
+                </div>
+                <button class="delete-menu mar-top btn btn-sm btn-danger btn-labeled icon-sm fa fa-trash" type="button" name="_continue">{% trans 'Delete' %}</button>
+                <button class="update-cat-menu mar-top btn btn-sm btn-info btn-labeled icon-sm fa fa-check" type="button" name="_continue">{% trans 'Save' %}</button>
+
+            {% endif %}
+            {% if v.menu_type == 'Page' %}
+                {% csrf_token %}
+                <input type="hidden" name="pageid" value="{{ v.id }}">
+                <input type="hidden" name="id" value="{{ v.id }}">
+                <div class="form-group" style="width: 100%">
+                    <label class="control-label">{% trans 'Name' %}</label>
+                    <input type="text" name="text" value="{{ v.name }}" class="form-control input-sm" style="width: 100%">
+                </div>
+                <button class="delete-menu mar-top btn btn-sm btn-danger btn-labeled icon-sm fa fa-trash" type="button" name="_continue">{% trans 'Delete' %}</button>
+                <button class="update-page-menu mar-top btn btn-sm btn-info btn-labeled icon-sm fa fa-check" type="button" name="_continue">{% trans 'Save' %}</button>
+            {% endif %}
+        </div>
+        {% if v.id|count_menu != 0 %}
+            <ol class="dd-list">
+                {% getTreeMenu v.id|load_menu_by_parent_id %}
+            </ol>
+        {% endif %}
+    </li>
+{% endfor %}

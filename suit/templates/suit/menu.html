@@ -1,0 +1,53 @@
+{#{% load sitetree %}#}
+{% load i18n suit_menu %}
+{% load url from suit_compat %}
+
+<div id="mainnav-menu-wrap">
+    <div class="nano">
+        <div class="nano-content">
+            <ul id="mainnav-menu" class="list-group">
+                {% block menu_home %}
+                    {% url 'admin:index' as index_url %}
+                    <li{% if index_url == request.path %} class="active-link"{% endif %}>
+                        <a href="{{ index_url }}">
+                            <i class="fa fa-home"></i>
+                            <span class="menu-title">
+                                    {% trans 'Home' %}
+                            </span>
+                        </a>
+                    </li>
+                {% endblock %}
+                {% get_menu request as app_list %}
+                {% if app_list %}
+                    {% for app in app_list %}
+                        {% if app.separator %}
+                            <li class="separator"></li>
+                        {% else %}
+                            <li class="{% if app.is_active %}active-sub active {% endif %}">
+{#                            <li{{ app.is_active|yesno:' class=active-sub,' }}>#}
+                                <a href="{{ app.url }}"{{ app.blank|yesno:' target=_blank,' }}>
+                                    <i class="fa {% firstof app.icon 'fa-angle-right' %}"></i>
+                                    <span class="menu-title">
+                                             {% trans app.label|capfirst %}
+                                    </span>
+                                    <i class="arrow"></i>
+                                </a>
+                                {% if app.models %}
+                                    <ul class="collapse">
+                                        {% for model in app.models %}
+                                            <li{{ model.is_active|yesno:' class=active-link,' }}>
+                                                <a href="{{ model.url }}"{{ model.blank|yesno:' target=_blank,' }}>
+                                                    {{ model.label }}
+                                                </a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>

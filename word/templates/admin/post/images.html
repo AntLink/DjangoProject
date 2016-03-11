@@ -1,0 +1,10 @@
+<div class="dropzone" id="image-gallery">
+    {% for image in data %}
+        <div class="dz-preview">
+            <label style="position: absolute; margin-left: 2px;cursor: pointer; color: #ea4335" class="img-g">
+                <i class="fa fa-times-circle-o"></i>
+            </label>
+            <img src="/media/image/thumbnail/100x100/{{ image }}" data-image="{{ image }}">
+        </div>
+    {% endfor %}
+</div>

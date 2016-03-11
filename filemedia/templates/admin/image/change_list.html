@@ -1,0 +1,263 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_static admin_urls admin_list filemedia_list suit_list suit_tags %}
+{% load url from suit_compat %}
+
+{% block extrastyle %}
+    <link rel="stylesheet" type="text/css" href="{% static 'nifty/plugins/dropzone/dropzone-old.css' %}" media="all">
+{% endblock %}
+{% block searchbox %}
+    {% searchbox_form cl %}
+{% endblock %}
+{% block extrahead %}
+{% endblock %}
+
+{% block bodyclass %}
+{% endblock %}
+
+{% if not is_popup %}
+    {% block breadcrumbs %}
+        <ol class="breadcrumb">
+            <li>
+                <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+            </li>
+            <li>
+                <a href="{% url 'admin:app_list' app_label='filemedia' %}">{% trans 'Media' %}</a>
+            </li>
+            {% if tax %}
+                <li>
+                    <a href="{% url opts|admin_urlname:'changelist' %}">
+                        {{ opts.verbose_name }}
+                    </a>
+                </li>
+                <li class="active">{{ tax_name }}</li>
+            {% else %}
+                <li class="active">{{ opts.verbose_name }}</li>
+            {% endif %}
+        </ol>
+    {% endblock %}
+    {#    {% block breadcrumbs %}#}
+    {#        <ol class="breadcrumb">#}
+    {#            <li>#}
+    {#                <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>#}
+    {#            </li>#}
+    {#            <li>#}
+    {#                <a href="{% url 'admin:app_list' app_label=cl.opts.app_label %}">{% firstof cl.opts.app_config.verbose_name app_label|capfirst|escape %}</a>#}
+    {#            </li>#}
+    {#            <li class="active">{{ cl.opts.verbose_name_plural|capfirst }}</li>#}
+    {#        </ol>#}
+    {#    {% endblock %}#}
+{% endif %}
+
+{% block coltype %}flex{% endblock %}
+
+{% block content %}
+
+
+    <div class="row" style="margin-bottom: 10px">
+        <div class="col-sm-8">
+            {% if cl.full_result_count %}
+                {% search_form cl %}
+            {% endif %}
+            {#                {% if action_form and cl.full_result_count %}#}
+            {#                    {% admin_actions %}#}
+            {#                {% endif %}#}
+        </div>
+        <div class="col-sm-4">
+            <div class="pull-right">
+                {% if tax %}
+                    <a title="List Mode" href="{% url opts|admin_urlname:'tags' tax 'list' %}"
+                       class="btn btn-default btn-icon icon-lg fa fa-th-list {% if type != 'grid' %}active{% endif %}"></a>
+                    <a title="Grid Mode" href="{% url opts|admin_urlname:'tags' tax 'grid' %}"
+                       class="btn btn-default btn-icon icon-lg fa fa-th {% if type == 'grid' %}active{% endif %}"></a>
+                {% else %}
+                    <a title="List Mode" href="{% url opts|admin_urlname:'mode_changelist' 'list' %}"
+                       class="btn btn-default btn-icon icon-lg fa fa-th-list {% if type != 'grid' %}active{% endif %}"></a>
+                    <a title="Grid Mode" href="{% url opts|admin_urlname:'mode_changelist' 'grid' %}"
+                       class="btn btn-default btn-icon icon-lg fa fa-th {% if type == 'grid' %}active{% endif %}"></a>
+                {% endif %}
+                <button id="add-image" type="button" class="btn btn-default  btn-labeled icon-lg fa fa-plus">
+                    {% trans 'Add Image' %}
+                </button>
+            </div>
+
+        </div>
+    </div>
+    <form id="changelist-form" action="" method="post" {% if cl.formset.is_multipart %}
+          enctype="multipart/form-data"{% endif %} class="form-inline">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-sm-12">
+                {% if cl.result_count %}
+                    <div class="panel">
+                        <div class="panel-footer">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    {% if action_form and cl.full_result_count %}
+                                        {% admin_actions %}
+                                    {% endif %}
+                                    <span>
+                                        {% trans 'Showing' %}&nbsp;{% paginator_info cl %} of {{ cl.result_count }}
+                                        {% ifequal cl.result_count 1 %}
+                                            {% trans 'Items' %}
+                                        {% else %}
+                                            {% trans 'Items' %}
+                                        {% endifequal %}
+                                        </span>
+                                </div>
+                                <div class="col-sm-6">
+                                    {% if cl.result_count %}
+                                        {% pagination cl %}
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                        </div>
+
+                        {#                        {% if type == 'list' %}#}
+                        {#                            <div class="panel-body table-responsive">#}
+                        {#                                {% result_list cl %}#}
+                        {#                            </div>#}
+                        {#                        {% endif %}#}
+
+                        {% if type == 'grid' %}
+                            <div class="panel-body">
+                                <div class="dropzone" id="dropzone">
+                                    {% file_media_result_list cl %}
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="panel-body table-responsive">
+                                {% result_list cl %}
+                            </div>
+                        {% endif %}
+
+                        <div class="panel-footer">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    {% if action_form and cl.full_result_count %}
+                                        {% admin_actions %}
+                                    {% endif %}
+                                    <span>
+                                        {% trans 'Showing' %}&nbsp;{% paginator_info cl %} of {{ cl.result_count }}
+                                        {% ifequal cl.result_count 1 %}
+                                            {% trans 'Items' %}
+                                        {% else %}
+                                            {% trans 'Items' %}
+                                        {% endifequal %}
+                                        </span>
+                                </div>
+                                <div class="col-sm-6">
+                                    {% if cl.result_count %}
+                                        {% pagination cl %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="dropzone" id="dropzone">
+                        <div class="alert alert-block alert-info" id="image-alert">
+                            {% if cl.full_result_count %}
+                                <h4>{% trans 'Nothing found' %}!</h4>
+                                <br>
+                                <a href="?{% if cl.is_popup %}{{ POPUP_VAR }}=1{% endif %}">
+                                    {% trans 'Reset search and filters' %}
+                                </a>
+                            {% else %}
+                                {% blocktrans with cl.opts.verbose_name_plural|capfirst as name_plural %}
+                                    {{ name_plural }} are not created yet{% endblocktrans %}.
+                                {% if has_add_permission %}
+                                    {#                                    <a href="{% url cl.opts|admin_urlname:'add' %}{% if is_popup %}?{{ POPUP_VAR }}=1{% endif %}">#}
+                                    {#                                        {% blocktrans with cl.opts.verbose_name as name %}#}
+                                    {#                                            Add {{ name }}#}
+                                    {#                                        {% endblocktrans %}#}
+                                    {#                                    </a>#}
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        {#        {% block pagination %}#}
+        {#            {% if cl.result_count %}#}
+        {#                <div class="row" style="margin-top: 10px">#}
+        {#                    {% pagination cl %}#}
+        {#                </div>#}
+        {#            {% endif %}#}
+        {#        {% endblock %}#}
+    </form>
+{% endblock %}
+{% block extrajs %}
+
+    {#    <script type="text/javascript" src="{% static 'nifty/js/jquery-2.1.1.min.js' %}"></script>#}
+    {#    <script type="text/javascript" src="{% static 'nifty/js/bootstrap.min.js' %}"></script>#}
+    {#    <script type="text/javascript" src="{% static 'nifty/js/nifty.min.js' %}"></script>#}
+    {#    <script type="text/javascript" src="{% static 'nifty/plugins/bootstrap-select/bootstrap-select.min.js' %}"></script>#}
+    <script type="text/javascript" src="{% static 'nifty/plugins/dropzone/src/dropzone.js' %}"></script>
+    <script type="text/javascript" src="{% static 'nifty/plugins/freewall/freewall.js' %}"></script>
+    <script type="text/javascript" type="text/javascript">
+        Dropzone.autoDiscover = false;
+
+        function reloadFreeWall() {
+            var wall = new freewall('.dropzone');
+            wall.reset({
+                selector: '.dz-preview',
+                animate: true,
+                gutterX: 6,
+                gutterY: 6,
+                cellW: 115,
+                cellH: 115,
+                onResize: function () {
+                    wall.fitWidth();
+                },
+                onComplete: function () {
+                }
+            });
+            return wall.fitWidth();
+        }
+        $(function () {
+            reloadFreeWall();
+            $(".mainnav-toggle").click(function () {
+
+            });
+            dzattr = $('.dz-preview').attr('style');
+            {% if type == 'grid' %}
+                $("#add-image").dropzone({
+                    url: "{% url opts|admin_urlname:'upload' %}",
+                    addRemoveLinks: false,
+                    previewsContainer: '#dropzone',
+                    acceptedFiles: ".jpeg,.jpg,.png,.gif",
+                    maxFilesize: 512,
+                    thumbnailWidth: 115,
+                    thumbnailHeight: 115,
+                    previewTemplate: '<div class="dz-preview" style="' + dzattr + '"><img data-dz-thumbnail /><div class="dz-progress"><div class="progress progress-striped active" style="height: 20px; border-radius: 50px"><div data-dz-uploadprogress class="progress-bar progress-bar-success"></div></div></div></div>',
+                    {#                    previewTemplate: document.querySelector('#template-container').innerHTML#}
+                    success: function (file, response) {
+                        file.previewElement.classList.add("dz-preview");
+                        $(file.previewTemplate).find('.dz-progress').remove();
+                    },
+                    error: function (file, response) {
+                        file.previewElement.classList.add("dz-error");
+                    },
+                    sending: function (file, xhr, formData) {
+                        {% if tax %}
+                            formData.append('tax', {{ tax }});
+                        {% endif %}
+                        $('#image-alert').remove();
+                        reloadFreeWall();
+                    },
+                    {#                    thumbnail: function (file, dataUrl) {#}
+                    {#                        console.log(file)#}
+                    {#                    },#}
+                    {#                    addedfile: function (file) {#}
+                    {#                        file.previewElement = Dropzone.createElement(this.options.previewTemplate);#}
+                    {#                    },#}
+                    {#                    uploadprogress: function (file, progress, bytesSent) {#}
+                    {#                        console.log(bytesSent);#}
+                    {#                    }#}
+                });
+            {% endif %}
+        })
+    </script>
+{% endblock %}

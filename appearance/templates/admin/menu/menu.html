@@ -1,0 +1,423 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_static admin_modify suit_tags admin_urls menu %}
+{% load url from suit_compat %}
+
+{% block extrahead %}
+    {{ block.super }}
+    {#    {% url 'admin:jsi18n' as jsi18nurl %}#}
+    {#    <script type="text/javascript" src="{{ jsi18nurl|default:"../../../jsi18n/" }}"></script>#}
+    <script type="text/javascript" src="{% static 'nifty/plugins/jquery-cookie/jquery.cookie.js' %}"></script>
+
+    {{ media }}
+{% endblock %}
+
+
+{% block extrajs %}
+    {{ block.super }}
+    <script src="{% static 'nifty/plugins/slimScroll/jquery.slimscroll.min.js' %}"></script>
+    <script src="{% static 'nifty/plugins/nestable/jquery.nestable.js' %}"></script>
+
+    <script type="text/javascript">
+        $('#category-slim').slimScroll({
+            height: '265px',
+            alwaysVisible: true
+        });
+
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie != '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        $('#nestable3').nestable({maxDepth: 3}).on('change', function () {
+            var csrftoken = getCookie('csrftoken');
+            var data = window.JSON.stringify($('#nestable3').nestable('serialize'));
+            $.ajax({
+                dataType: "json",
+                cache: false,
+                url: "{% url opts|admin_urlname:'update_menu_structure' %}",
+                method: 'post',
+                data: {'csrfmiddlewaretoken': csrftoken, 'data': data, 'parent': "{{ id }}"},
+                success: $.proxy(function (data) {
+
+                }, this)
+            });
+        });
+
+        $('.update-cat-menu').on('click', function () {
+            var parent = $(this).parent();
+            var data = $(parent).find('input').serialize() + '&' + $(parent).find('select').serialize();
+            var text = $(parent).find('input[name=text]').val();
+            $(this).parent().parent().find('.menu-text').text(text);
+            $.ajax({
+                dataType: "json",
+                cache: false,
+                url: "{% url opts|admin_urlname:'update_cat_in_menu' %}",
+                method: 'post',
+                data: data,
+                success: $.proxy(function (data) {
+
+                }, this)
+            });
+        });
+
+        $('.update-custom-menu').on('click', function () {
+            var parent = $(this).parent();
+            var text = $(parent).find('input[name=text]').val();
+            $(this).parent().parent().find('.menu-text').text(text);
+            var data = $(parent).find('input').serialize() + '&' + $(parent).find('select').serialize();
+            $.ajax({
+                dataType: "json",
+                cache: false,
+                url: "{% url opts|admin_urlname:'update_custom_link_in_menu' %}",
+                method: 'post',
+                data: data,
+                success: $.proxy(function (data) {
+
+                }, this)
+            });
+        });
+
+        $('.update-page-menu').on('click', function () {
+            var parent = $(this).parent();
+            var text = $(parent).find('input[name=text]').val();
+            $(this).parent().parent().find('.menu-text').text(text);
+            var data = $(parent).find('input').serialize() + '&' + $(parent).find('select').serialize();
+            $.ajax({
+                dataType: "json",
+                cache: false,
+                url: "{% url opts|admin_urlname:'update_page_in_menu' %}",
+                method: 'post',
+                data: data,
+                success: $.proxy(function (data) {
+
+                }, this)
+            });
+        });
+
+        $('.delete-menu').on('click', function () {
+            var csrftoken = getCookie('csrftoken');
+            mid = $(this).parent().find('input[name=id]').attr('value');
+            $.ajax({
+                dataType: "json",
+                cache: false,
+                url: "{% url opts|admin_urlname:'delete_menu_structure' %}",
+                method: 'post',
+                data: {'id': mid, 'csrfmiddlewaretoken': csrftoken},
+                success: $.proxy(function (data) {
+
+                }, this)
+            });
+            var parents = $(this).parent().parent();
+            $(parents).fadeOut('slow');
+        });
+    </script>
+
+{% endblock %}
+
+{% block extrastyle %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'nifty/plugins/nestable/netstable.css' %}" media="all">
+{% endblock %}
+
+{% block content_title_value %}
+    {% trans 'Add' %} {{ opts.verbose_name }}
+{% endblock %}
+
+{% block coltype %}{% if ordered_objects %}colMS{% else %}colM{% endif %}{% endblock %}
+
+{% block bodyclass %}{{ opts.app_label }}-{{ opts.object_name.lower }} change-form{% endblock %}
+
+{% if not is_popup %}
+    {% block breadcrumbs %}
+        <ol class="breadcrumb">
+            <li>
+                <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+            </li>
+            <li>
+                <a href="{% url 'admin:app_list' app_label=opts.app_label %}">
+                    {% firstof opts.app_config.verbose_name app_label|capfirst|escape %}
+                </a>
+            </li>
+            {% if change_list %}
+                <li class="active">
+                    {{ opts.verbose_name_plural|capfirst }}
+                </li>
+            {% else %}
+                <li>
+                    {% if has_change_permission %}
+                        <a href="{% url opts|admin_urlname:'changelist' %}"> {{ opts.verbose_name_plural|capfirst }}</a>
+                    {% else %}
+                        {{ opts.verbose_name_plural|capfirst }}
+                    {% endif %}
+                </li>
+                <li class="active">
+                    {% if add %}{% trans 'Add' %} {{ opts.verbose_name }}{% else %}
+                        {{ original|truncatewords:"18" }}{% endif %}
+                </li>
+            {% endif %}
+        </ol>
+    {% endblock %}
+{% endif %}
+
+{% block error-messages %}
+    {% if errors %}
+        <div class="alert  alert-danger fade in">
+            <button class="close" data-dismiss="alert">×</button>
+            {% blocktrans count counter=errors|length %}
+                Please correct the error below.
+            {% plural %}
+                Please correct the errors below.
+            {% endblocktrans %}
+            {{ adminform.form.non_field_errors }}
+        </div>
+    {% endif %}
+{% endblock error-messages %}
+
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="list-group-item">
+                <form class="form-inline" method="post" action="{% url opts|admin_urlname:'select' %}">
+                    {% csrf_token %}
+                    <div class="form-group mar-no">
+                        <label class="control-label">{% trans 'Select a menu to edit:' %}</label>
+                        <select class="selectpicker" name="menu">
+                            <option value="None">{% trans 'Select a menu' %}</option>
+                            {% for m in menu_parent %}
+                                <option value="{{ m.pk }}" {% if m.pk == id %} selected {% endif %}>{{ m.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" type="submit">{% trans 'Select' %}</button>
+                    <label class="control-label"> {% trans 'or' %} <a href="{% url opts|admin_urlname:'add' %}">{% trans 'Create new menu.' %}</a></label>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <div class="row pad-top">
+        <div class="col-sm-4">
+            <!-- Start Page-->
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="panel-control">
+                        <button class="btn btn-default" data-target="#panel-collapse-page" data-toggle="collapse" aria-expanded="true"><i class="fa fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <h3 class="panel-title">{% trans 'Page' %}</h3>
+                </div>
+                <div id="panel-collapse-page" class="collapse in" aria-expanded="true">
+                    <form method="post" action="{% url opts|admin_urlname:'add_page_to_menu' %}">
+                        {% csrf_token %}
+                        {% if id != 0 %}
+                            <input type="hidden" name="parent" value="{{ id }}">
+                        {% endif %}
+                        <div class="panel-body">
+                            {% for p in page %}
+                                <div class="checkbox">
+                                    <label class="menu-form-cat form-checkbox form-normal  form-text {% if id == 0 %}disabled{% endif %}">
+                                        <input id="id_page_{{ p.id }}" name="pages" type="checkbox" value="{{ p.id }}" {% if id == 0 %}disabled{% endif %}>
+                                        <span clas="text-muted">{{ p.title }}</span>
+                                    </label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="panel-footer">
+                            <div class="row">
+                                <div class="col-sm-9 col-sm-offset-3">
+                                    <button class="btn btn-sm btn-info btn-labeled icon-sm fa fa-plus" type="submit" {% if id == 0 %}disabled{% endif %}>{% trans 'Add to menu' %}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- End Page-->
+
+            <!-- Start Category-->
+            <div class="panel">
+
+                <div class="panel-heading">
+                    <div class="panel-control">
+                        <button class="btn btn-default" data-target="#panel-collapse-category" data-toggle="collapse" aria-expanded="true">
+                            <i class="fa fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <h3 class="panel-title">{% trans 'Category' %}</h3>
+                </div>
+
+
+                <div id="panel-collapse-category" class="collapse in" aria-expanded="true">
+                    <form method="post" action="{% url opts|admin_urlname:'add_cat_to_menu' %}">
+                        {% csrf_token %}
+                        {% if id != 0 %}
+                            <input type="hidden" name="parent" value="{{ id }}">
+                        {% endif %}
+                        <div class="panel-body" id="category-slim">
+                            <ul class="category">
+                                {% for vc in category %}
+                                    {% if vc.level != 0 %}
+                                        <li style="margin-left: {{ vc.level|space }}px;">
+                                    {% endif %}
+                                <div class="checkbox">
+                                    <label class="menu-form-cat form-checkbox form-normal  form-text {% if id == 0 %}disabled{% endif %}" >
+                                        <input name="categories" type="checkbox" value="{{ vc.id }}" {% if id == 0 %}disabled{% endif %}>
+                                        <span clas="text-muted">{{ vc.name }}</span>
+                                    </label>
+                                </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="row">
+                                <div class="col-sm-9 col-sm-offset-3">
+                                    <button class="btn btn-sm btn-info btn-labeled icon-sm fa fa-plus" type="submit" {% if id == 0 %}disabled{% endif %}>{% trans 'Add to menu' %}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- End Category-->
+
+            <!-- Start Custom Link-->
+            <div class="panel">
+
+                <div class="panel-heading">
+                    <div class="panel-control">
+                        <button class="btn btn-default" data-target="#panel-collapse-custom-links" data-toggle="collapse" aria-expanded="true">
+                            <i class="fa fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <h3 class="panel-title">{% trans 'Custom links' %}</h3>
+                </div>
+
+
+                <div id="panel-collapse-custom-links" class="collapse in" aria-expanded="true">
+                    <form class="form-horizontal" method="post" action="{% url opts|admin_urlname:'add_custom_link_to_menu' %}">
+                        {% csrf_token %}
+                        {% if id != 0 %}
+                            <input type="hidden" name="parent" value="{{ id }}">
+                        {% endif %}
+                        <div class="panel-body ">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">{% trans 'Link' %}</label>
+                                <div class="col-sm-9">
+                                    <input name="url" type="text" placeholder="http://" class="form-control input-sm" {% if id == 0 %}disabled{% endif %}>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">{% trans 'Text' %}</label>
+
+                                <div class="col-sm-9 ">
+                                    <input name="name" type="text" placeholder="Menu item" class="form-control input-sm" {% if id == 0 %}disabled{% endif %}>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="row">
+                                <div class="col-sm-9 col-sm-offset-3">
+                                    <button class="btn btn-sm btn-info btn-labeled icon-sm fa fa-plus" type="submit" {% if id == 0 %}disabled{% endif %}>{% trans 'Add to menu' %}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- End Custom Link-->
+        </div>
+
+        <div class="col-sm-8">
+            <div class="panel">
+                <form class="form-inline" method="post">
+                    {% csrf_token %}
+                    <div class="panel-footer">
+                        {% for fieldset in adminform %}
+                            {% for line in fieldset %}
+                                {% for field in line %}
+                                    {% with field.field|widget_type as widget_type %}
+                                        {% if not field.is_readonly and field.errors %}
+                                            <div class="form-group has-error errors">
+                                            <div class="inline error errors">
+                                        {% endif %}
+                                    {% if widget_type != 'select' %}
+                                        <label class="control-label">{% trans 'Menu name' %}</label>
+                                        {{ field.field|add_class:"form-control input-sm" }}
+                                    {% endif %}
+                                    {% if not field.is_readonly and field.errors %}
+                                        </div>
+                                        </div>
+                                    {% endif %}
+
+                                    {% endwith %}
+                                {% endfor %}
+                            {% endfor %}
+                        {% endfor %}
+                        <button class="pull-right btn btn-sm btn-info btn-labeled icon-sm fa fa-check" type="submit" name="_continue">{% trans 'Save' %}</button>
+                    </div>
+                    <div class="panel-body">
+                        {% if id != 0 %}
+                            <b>{% trans 'Menu Structure' %}</b><br>
+                            <p>{% trans 'Drag each item into the order you prefer. Click the arrow on the right of the item to reveal additional configuration options.' %}</p>
+                            <hr>
+                            <!-- Start netstable-->
+                            <div class="dd" id="nestable3">
+                                <ol class="dd-list">
+                                    {% getTreeMenu menu %}
+                                </ol>
+                            </div>
+                            <!-- End netstable-->
+                            <hr>
+                            <b>{% trans 'Menu settings' %}</b>
+                            <br>
+                            {% for fieldset in adminform %}
+                                {% for line in fieldset %}
+                                    {% for field in line %}
+                                        {% with field.field|widget_type as widget_type %}
+                                            {% if not field.is_readonly and field.errors %}
+                                                <div class="form-group has-error errors">
+                                                <div class="inline error errors">
+                                            {% endif %}
+                                        {% if widget_type == 'select' %}
+                                            <label class="control-label mar-top">{% trans 'Menu location' %}</label>
+                                            {{ field.field|add_class:"selectpicker input-sm" }}
+                                        {% endif %}
+                                        {% if not field.is_readonly and field.errors %}
+                                            </div>
+                                            </div>
+                                        {% endif %}
+                                        {% endwith %}
+                                    {% endfor %}
+                                {% endfor %}
+                            {% endfor %}
+                        {% else %}
+                            <p>{% trans 'Give your menu a name above, then click Create Menu.' %}</p>
+                        {% endif %}
+                    </div>
+                    <div class="panel-footer {% if id == 0 %} text-right {% endif %}">
+                        {% if id != 0 %}
+                            <a href="delete/" class="btn btn-sm btn-danger btn-labeled icon-sm fa fa-trash">{% trans 'Delete menu' %}</a>
+                            <button class="btn btn-sm btn-info btn-labeled icon-sm fa fa-check pull-right" type="submit" name="_continue">{% trans 'Save' %}</button>
+                        {% else %}
+                            <button class="btn btn-sm btn-info btn-labeled icon-sm fa fa-check" type="submit" name="_continue">{% trans 'Save' %}</button>
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

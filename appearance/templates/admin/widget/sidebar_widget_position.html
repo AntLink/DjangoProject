@@ -1,0 +1,216 @@
+{% load i18n admin_static admin_modify suit_tags admin_urls menu widget %}
+{% load url from suit_compat %}
+
+<!-- Start sidebar-->
+<div class="panel">
+    <div class="panel-heading">
+        <div class="panel-control">
+            <button class="btn btn-default" data-target="#panel-collapse-sidebar" data-toggle="collapse" aria-expanded="true">
+                <i class="fa fa-chevron-down"></i>
+            </button>
+        </div>
+        <h3 class="panel-title">{% trans 'Sidebar' %}</h3>
+    </div>
+    <div id="panel-collapse-sidebar" class="collapse in" aria-expanded="true">
+        <div class="panel-body">
+            <!-- Start netstable-->
+            <div class="dd" id="sidebar-nestable">
+                {% if widget_sidebar %}
+                    <ol class="dd-list">
+                        {% for widget in widget_sidebar %}
+                            <li class="dd-item dd3-item" data-id="{{ widget.id }}" style="width: 100%">
+                                <div class="dd-handle dd3-handle"></div>
+                                <div class="dd3-content">
+                                    <span class="menu-text">{{ widget.custom_name }}</span>
+                                    <a href="javascript:;" class="pull-right collapsed" data-target="#panel-collapse-{{ widget.id }}" data-toggle="collapse" aria-expanded="false"></a>
+                                    <span class="text-sm pull-right pad-rgt" style="color: #b7b7b7; font-weight: normal; margin-top: 2px">{{ widget.name }}</span>
+                                </div>
+                                {% if widget.name == 'Text' %}
+                                    <div class="dd3-edit-col pad-all text-sm collapse" id="panel-collapse-{{ widget.id }}" aria-expanded="false" style="width: 100%;">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="id" value="{{ widget.id }}">
+                                        <div class="form-group" style="width: 100%">
+                                            <label class="control-label">{% trans 'Title' %}</label>
+                                            <input type="text" name="title" value="{{ widget.custom_name }}" class="form-control input-sm" style="width: 100%">
+                                        </div>
+                                        <div class="form-group" style="width: 100%">
+                                            <label class="control-label">{% trans 'Content' %}</label>
+                                            <textarea name="content" type="text" class="form-control" style="resize: none; height: 200px">{{ widget.content }}</textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="margin-top: 14px" class="form-checkbox form-normal">
+                                                <input type="checkbox" name="show_title" {% if widget.setting|show_title == 'yes' %} checked{% endif %} value="yes">
+                                            </label>
+                                            <span class="text-muted">{% trans 'Show title' %}</span>
+                                        </div>
+                                        <button class="delete-widget mar-top btn btn-sm btn-danger btn-labeled icon-sm fa fa-trash" type="button" name="_save">{% trans 'Delete' %}</button>
+                                        <button class="update-text-widget mar-top btn btn-sm btn-info btn-labeled icon-sm fa fa-check" type="button" name="_save">{% trans 'Save' %}</button>
+                                    </div>
+                                {% endif %}
+
+                                {% if widget.name == 'HTML' %}
+                                    <div class="dd3-edit-col pad-all text-sm collapse" id="panel-collapse-{{ widget.id }}" aria-expanded="false" style="width: 100%;">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="id" value="{{ widget.id }}">
+                                        {{ htmlform.name }}
+                                        <div class="form-group">
+                                            <label class="control-label">{% trans 'Title' %}</label>
+                                            {{ htmlform.title|add_class:'form-control input-sm'|add_value:widget.custom_name }}
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label">{% trans 'Content' %}</label>
+                                                                <textarea class=" redactor-box" cols="40" data-redactor-options="{
+                                                                &quot;lang&quot;: &quot;en&quot;,
+                                                                &quot;imagesUrlJsonUpdate&quot;:&quot;{% url 'admin:filemedia_image_jsonupdate' %}&quot;,
+                                                                &quot;buttons&quot;: [&quot;html&quot;, &quot;alignment&quot;, &quot;bold&quot;, &quot;italic&quot;, &quot;link&quot;, &quot;unorderedlist&quot;, &quot;orderedlist&quot;],
+                                                                &quot;plugins&quot;: [&quot;images&quot;,&quot;fullscreen&quot;],
+                                                                &quot;imagesUrlLoadJson&quot;: &quot;{% url 'admin:filemedia_image_jsonload' %}&quot;,
+                                                                &quot;imagesUrlupload&quot;: &quot;{% url 'admin:filemedia_image_upload' %}&quot;}" id="id_content" name="content" placeholder="{% trans 'Add content here' %}" rows="10" dir="ltr" style="display: none;">{{ widget.content }}</textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="margin-top: 14px" class="form-checkbox form-normal">
+                                                <input type="checkbox" name="show_title" {% if widget.setting|show_title == 'yes' %} checked{% endif %} value="yes">
+                                            </label>
+                                            <span class="text-muted">{% trans 'Show title' %}</span>
+                                        </div>
+                                        <button class="delete-widget mar-top btn btn-sm btn-danger btn-labeled icon-sm fa fa-trash" type="button" name="_save">{% trans 'Delete' %}</button>
+                                        <button class="update-html-widget mar-top btn btn-sm btn-info btn-labeled icon-sm fa fa-check" type="button" name="_save">{% trans 'Save' %}</button>
+                                    </div>
+                                {% endif %}
+
+                                {% if widget.name == 'Tag' %}
+                                    <div class="dd3-edit-col pad-all text-sm collapse" id="panel-collapse-{{ widget.id }}" aria-expanded="false" style="width: 100%;">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="id" value="{{ widget.id }}">
+                                        {{ tagform.name }}
+                                        <div class="form-group">
+                                            <label class="control-label">{% trans 'Title' %}</label>
+                                            {{ htmlform.title|add_class:'form-control input-sm'|add_value:widget.custom_name }}
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label">{% trans 'Limit' %}</label>
+                                            <input type="number" class="form-control input-sm" value="{{ widget.setting|show_setting_value:'limit' }}">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label">{% trans 'Taxonomy' %}</label>
+                                            <br>
+                                            <select class="selectpicker" id="id_taxonomy" name="taxonomy" style="display: none;">
+                                                <option value="tag" {% if widget.setting|show_setting_value:'taxonomy' == 'tag' %}selected{% endif %}>{% trans 'Tags' %}</option>
+                                                <option value="category" {% if widget.setting|show_setting_value:'taxonomy' == 'category' %}selected{% endif %}>{% trans 'Category' %}</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">{% trans 'Display' %}</label>
+                                            <br>
+                                            <select class="selectpicker" id="id_display" name="display" style="display: none;">
+                                                <option value="cloud" {% if widget.setting|show_setting_value:'display' == 'cloud' %}selected{% endif %}>{% trans 'Display as cloud' %}</option>
+                                                <option value="list" {% if widget.setting|show_setting_value:'display' == 'list' %}selected{% endif %}>{% trans 'Display as list' %}</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="margin-top: 14px" class="form-checkbox form-normal">
+                                                <input type="checkbox" name="show_title" {% if widget.setting|show_title == 'yes' %} checked{% endif %} value="yes">
+                                            </label>
+                                            <span class="text-muted">{% trans 'Show title' %}</span>
+                                        </div>
+                                        <button class="delete-widget mar-top btn btn-sm btn-danger btn-labeled icon-sm fa fa-trash" type="button" name="_save">{% trans 'Delete' %}</button>
+                                        <button class="update-tag-widget mar-top btn btn-sm btn-info btn-labeled icon-sm fa fa-check" type="button" name="_save">{% trans 'Save' %}</button>
+                                    </div>
+                                {% endif %}
+
+                                {% if widget.name == 'Category' %}
+                                    <div class="dd3-edit-col pad-all text-sm collapse" id="panel-collapse-{{ widget.id }}" aria-expanded="false" style="width: 100%;">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="id" value="{{ widget.id }}">
+
+                                        <div class="form-group">
+                                            <label class="control-label">{% trans 'Title' %}</label>
+                                            {{ htmlform.title|add_class:'form-control input-sm'|add_value:widget.custom_name }}
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">{% trans 'Limit' %}</label>
+                                            <input type="number" class="form-control input-sm" value="{{ widget.setting|show_setting_value:'limit' }}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">{% trans 'Display' %}</label>
+                                            <br>
+                                            <select class="selectpicker" id="id_display" name="display" style="display: none;">
+                                                <option value="tree" {% if widget.setting|show_setting_value:'display' == 'tree' %}selected{% endif %}>{% trans 'Display as tree' %}</option>
+                                                <option value="list" {% if widget.setting|show_setting_value:'display' == 'list' %}selected{% endif %}>{% trans 'Display as list' %}</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="margin-top: 14px" class="form-checkbox form-normal">
+                                                <input type="checkbox" name="show_title" {% if widget.setting|show_title == 'yes' %} checked{% endif %} value="yes">
+                                            </label>
+                                            <span class="text-muted">{% trans 'Show title' %}</span>
+                                        </div>
+                                        <button class="delete-widget mar-top btn btn-sm btn-danger btn-labeled icon-sm fa fa-trash" type="button" name="_save">{% trans 'Delete' %}</button>
+                                        <button class="update-cat-widget mar-top btn btn-sm btn-info btn-labeled icon-sm fa fa-check" type="button" name="_save">{% trans 'Save' %}</button>
+                                    </div>
+                                {% endif %}
+
+                                {% if widget.name == 'Recent Post' %}
+                                    <div class="dd3-edit-col pad-all text-sm collapse" id="panel-collapse-{{ widget.id }}" aria-expanded="false" style="width: 100%;">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="id" value="{{ widget.id }}">
+                                        <div class="form-group">
+                                            <label class="control-label">{% trans 'Title' %}</label>
+                                            {{ postform.title|add_class:'form-control input-sm'|add_value:widget.custom_name }}
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label">{% trans 'Limit' %}</label>
+                                            <input class="form-control required input-sm" id="id_limit" name="limit" type="number" value="{{ widget.setting|show_setting_value:'limit' }}">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label">{% trans 'Border Color' %}</label>
+                                            <input class="form-control required input-sm" name="border_color" value="{{ widget.setting|show_setting_value:'border_color' }}">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label">{% trans 'Display' %}</label>
+                                            <br>
+                                            <select class="selectpicker" id="id_display" name="display" style="display: none;">
+                                                <option value="media" {% if widget.setting|show_setting_value:'display' == 'media' %}selected{% endif %}>Display as media</option>
+                                                <option value="list" {% if widget.setting|show_setting_value:'display' == 'list' %}selected{% endif %}>Display as list</option>
+                                                <option value="home_content" {% if widget.setting|show_setting_value:'display' == 'home_content' %}selected{% endif %}>Display as home content</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">{% trans 'Category' %}</label>
+                                            <br>
+                                            <select class="selectpicker" id="id_display" name="category" style="display: none;">
+                                                <option value="all">All Categories</option>
+                                                {% for cat in category %}
+                                                    <option value="{{ cat.slug }}" {% if widget.setting|show_setting_value:'category' == cat.slug %}selected{% endif %}>{{ cat.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="margin-top: 14px" class="form-checkbox form-normal">
+                                                <input type="checkbox" name="show_title" {% if widget.setting|show_title == 'yes' %} checked{% endif %} value="yes">
+                                            </label>
+                                            <span class="text-muted">{% trans 'Show title' %}</span>
+                                        </div>
+                                        <button class="delete-widget mar-top btn btn-sm btn-danger btn-labeled icon-sm fa fa-trash" type="button" name="_save">{% trans 'Delete' %}</button>
+                                        <button class="update-post-widget mar-top btn btn-sm btn-info btn-labeled icon-sm fa fa-check" type="button" name="_save">{% trans 'Save' %}</button>
+                                    </div>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ol>
+                {% else %}
+                    <div class="dd-empty"></div>
+                {% endif %}
+            </div>
+            <!-- End netstable-->
+        </div>
+    </div>
+</div>
+<!-- End sidebar-->
+

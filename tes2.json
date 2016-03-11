@@ -1,0 +1,29 @@
+{
+  "data": {
+    "sourceAirportOrArea": "JKTA",
+    "destinationAirportOrArea": "DPS",
+    "flightDate": "31-01-2016",
+    "newResult": "false",
+    "seqNo": {
+      "T": "1454144510869",
+      "C": null,
+      "NC": [
+        "2016.1.31.HLP.SUB.DPS.1.id_ID.IDR.desktop",
+        "2016.1.31.HLP.JOG.DPS.1.id_ID.IDR.desktop"
+      ],
+      "departure": null,
+      "arrival": null
+    },
+    "numSeats": {
+      "numAdults": "1",
+      "numChildren": "0",
+      "numInfants": "0"
+    },
+    "currency": "IDR"
+  },
+  "context": {
+    "tvLifetime": "2KEte4sRYvzMRZ4nHXK6eBvCMXBoa5w+ciyJGRsuJsHk0J0JOfX7AXBUegjJfNoR+X3MOnNjlgvlDM38uCV6UQ==",
+    "tvSession": "uVZYztgvybLUyEcS2QNKakEodrbZ+pB5SWRssEpl2Cdvr13VWCnZ1fQnmZYgVNeDp8Mkeiezk5rBfbYjRppXnCH6HSKFNo7rvm2potZ7k0c="
+  },
+  "clientInterface": "desktop"
+}

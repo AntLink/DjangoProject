@@ -1,0 +1,26 @@
+{% load i18n pront %}
+{% if show_title == 'yes' %}
+    {% if position == 'sidebar' %}
+        <div class="headline-v2 bg-color-light">
+            <h2>{{ title }}</h2>
+        </div>
+    {% else %}
+        <div class="headline">
+            <h2>{{ title }}</h2>
+        </div>
+    {% endif %}
+{% endif %}
+{% if display == 'cloud' %}
+    <ul class="list-inline tags-v2 margin-bottom-40" >
+        {% for tag in taxs %}
+            <li><a  class="rounded-3x" style="font-size: 11px" href="{% url 'tags' tag.slug %}">#{{ tag.name }}</a></li>
+        {% endfor %}
+    </ul>
+{% endif %}
+{% if display == 'list' %}
+    <ul class="list-group">
+        {% for tag in taxs %}
+            <li class="list-group-item"><a href="{% url 'tags' tag.slug %}">#{{ tag.name }}</a></li>
+        {% endfor %}
+    </ul>
+{% endif %}

@@ -1,0 +1,40 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_static admin_urls suit_list suit_tags %}
+{% load url from suit_compat %}
+
+{% block extrastyle %}
+{% endblock %}
+{% block searchbox %}
+{% endblock %}
+{% block extrahead %}
+{% endblock %}
+
+{% block bodyclass %}
+{% endblock %}
+
+{% if not is_popup %}
+    {% block breadcrumbs %}
+        <ol class="breadcrumb">
+            <li>
+                <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+            </li>
+            <li>
+                <a href="{% url 'admin:app_list' app_label='filemedia' %}">{% trans 'Media' %}</a>
+            </li>
+            <li class="active">{% trans 'Album' %}</li>
+        </ol>
+    {% endblock %}
+{% endif %}
+
+{% block coltype %}flex{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-sm-12">
+            {{ model }}
+        </div>
+    </div>
+    {% block pagination %}
+    {% endblock %}
+{% endblock %}

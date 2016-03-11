@@ -1,0 +1,64 @@
+{% load admin_static pront %}
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+    <title>{% block title %}{{ title }} {{ site_title }}{% endblock %}</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{% block meta_description %}{{ site_description }}{% endblock %}">
+    <meta name="author" content="{% block meta_author %}{{ site_author }}{% endblock %}">
+    <meta name="keywords" content="{% block keywords %}{{ site_keyword }}{% endblock %}">
+    <link href="{% static 'img/favicon.png' %}" rel="shortcut icon">
+
+    <!-- Web Fonts -->
+    <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600&amp;subset=cyrillic,latin'>
+
+    <!-- CSS Global Compulsory -->
+    <link rel="stylesheet" href="{% static 'plugins/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{#    <link rel="stylesheet" href="{% static 'css/app.css' %}">#}
+{#    <link rel="stylesheet" href="{% static 'css/blocks.css' %}">#}
+
+    <!-- CSS Header and Footer -->
+    <link rel="stylesheet" href="{% static 'css/headers/header-v8.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footers/footer-v1.css' %}">
+
+    <!-- CSS Implementing Plugins -->
+    {% block cssplugins %}{% endblock %}
+
+    <!-- CSS Theme -->
+    <link rel="stylesheet" href="{% static 'css/theme-colors/red.css' %}" id="style_color">
+    <link rel="stylesheet" href="{% static 'css/theme-skins/dark.css' %}">
+
+    <!-- CSS Customization -->
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+</head>
+<body class="header-fixed header-fixed-space-v2">
+<div class="wrapper">
+    {% include 'layout/header.html' %}
+    {% block breadcrumbs %}{% endblock %}
+    {% block content %}{% endblock %}
+    {% include 'layout/footer.html' %}
+</div>
+<!-- JS Global Compulsory -->
+<script type="text/javascript" src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'plugins/jquery/jquery-migrate.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+<!-- JS Implementing Plugins -->
+{% block jsplugin %}{% endblock %}
+<!-- JS Page Level -->
+{% block jspagelevel %}{% endblock %}
+<!-- JS Script -->
+{% block jsscript %}{% endblock %}
+<!--[if lt IE 9]>
+	<script src="{% static 'plugins/respond.js' %}"></script>
+	<script src="{% static 'plugins/html5shiv.js' %}"></script>
+	<script src="{% static 'plugins/placeholder-IE-fixes.js' %}"></script>
+<![endif]-->
+</body>
+</html>

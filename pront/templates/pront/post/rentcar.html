@@ -1,0 +1,70 @@
+{% load i18n pront widget admin_static humanize %}
+<div class="container margin-top-20">
+    <div class="row">
+        {% if object.layout == 'right' %}
+            <div class="col-md-3">
+                {% widget_sidebar %}
+            </div>
+        {% endif %}
+        <div class="{% if object.layout == 'pull' %}col-md-12 {% else %}col-md-9{% endif %}">
+            <div class="margin-bottom-10">
+                <div class="news-v3 bg-color-light margin-bottom-30">
+                    <div class="easy-block-v1 ">
+                        <div class="easy-block-v1-badge rgba-blue">Rp. {{ object.word_meta|show_setting_value:'price'|intcomma }}</div>
+
+                        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="item active">
+                                    <img src="/media/image/{{ object.image }}" class="img-responsive full-width">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-v3-in">
+                        {{ object.content|safe }}
+                    </div>
+
+                </div>
+                <div class="headline-v2 bg-color-light">
+                    <h2>Kode boking : {{ object.word_meta|show_setting_value:'boking_code' }}</h2>
+                </div>
+
+
+                <!-- Blog Thumb v4 -->
+                <div class="margin-bottom-50">
+                    <div class="headline">
+                        <h2>Rekomendasi</h2>
+                    </div>
+
+                    <div class="row news-v2 margin-bottom-50">
+                        {% for related in object.self_relationships.all|dictsortreversed:"created_at"|slice:"3" %}
+
+                            <div class="col-sm-4 col-xs-6 sm-margin-bottom-30 ">
+                                <div class="news-v2-badge">
+
+                                    <a href="{% url 'post-detail' related.get_category_slug_first related.slug %}">
+                                        <img class="img-responsive" src="/media/image/{{ related.image }}" alt="{{ related.title }}">
+                                    </a>
+                                    <p>
+                                        <small>Rp. {{ related.word_meta|show_setting_value:'price'|intcomma }}</small>
+                                        <small></small>
+                                    </p>
+                                </div>
+                                <div class="news-v2-desc  bg-color-light">
+                                    <h5><a href="{% url 'post-detail' related.get_category_slug_first related.slug %}">{{ related.title }}</a></h5>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <!--/end row-->
+                </div>
+                <!-- End Blog Thumb v4 -->
+            </div>
+        </div>
+        {% if object.layout == 'left' %}
+            <div class="col-md-3">
+                {% widget_sidebar %}
+            </div>
+        {% endif %}
+    </div>
+</div>

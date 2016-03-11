@@ -1,0 +1,57 @@
+{% load i18n admin_static admin_modify suit_tags admin_urls menu %}
+{% load url from suit_compat %}
+
+<!-- Start widget category-->
+<div class="panel">
+    <div class="panel-heading">
+        <div class="panel-control">
+            <button class="btn btn-default" data-target="#panel-collapse-widget-category" data-toggle="collapse" aria-expanded="true">
+                <i class="fa fa-chevron-down"></i>
+            </button>
+        </div>
+        <h3 class="panel-title">{% trans 'Category' %}</h3>
+    </div>
+    <form method="post" action="{% url opts|admin_urlname:'add_category' %}">
+        <div id="panel-collapse-widget-category" class="collapse in" aria-expanded="true">
+            <div class="panel-body">
+                {% csrf_token %}
+                <div class="form-group {{ catform.title.errors|yesno:' has-error,' }}">
+                    <label class="control-label">{% trans 'Title' %}</label>
+                    {{ catform.title|add_class:'form-control input-sm' }}
+                    <span class="help-block">{{ catform.title.errors|striptags }}</span>
+                </div>
+                <div class="form-group {{ catform.limit.errors|yesno:' has-error,' }}">
+                    <label class="control-label">{% trans 'Limit' %}</label>
+                    {{ catform.limit|add_class:'form-control input-sm' }}
+                    <span class="help-block">{{ catform.limit.errors|striptags }}</span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">{% trans 'Display' %}</label>
+                    <br>
+                    {{ catform.display|add_class:'selectpicker' }}
+                </div>
+                <div class="form-group">
+                    <label class="control-label">{% trans 'Position' %}</label>
+                    <br>
+                    {{ catform.position|add_class:'selectpicker' }}
+                </div>
+                <div class="form-group {{ catform.description.errors|yesno:' has-error,' }}">
+                    <label class="control-label">{% trans 'Description' %}</label>
+                    {{ catform.description|add_class:'form-control' }}
+                    <span class="help-block">{{ catform.description.errors|striptags }}</span>
+                </div>
+                <div class="form-group">
+                    <label style="margin-top: 14px" class="form-checkbox form-normal">
+                        {{ catform.show_title }}
+                    </label>
+                    <span class="text-muted">{% trans 'Show title' %}</span>
+                </div>
+            </div>
+
+            <div class="panel-footer">
+                <button class="btn btn-sm btn-info btn-labeled icon-sm fa fa-plus" type="submit" name="_continue">{% trans 'Add' %}</button>
+            </div>
+        </div>
+    </form>
+</div>
+<!-- End widget category-->

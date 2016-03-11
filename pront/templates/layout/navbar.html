@@ -1,0 +1,89 @@
+{% load i18n admin_static pront %}
+{% for v in data %}
+    {% if v.type == 'menu_page' %}
+        <li {% if v.parent_id == default %} class="dropdown"{% endif %} {% if v.parent_id != default and v.id|count_nav != 0 %}class="dropdown-submenu"{% endif %}>
+            <a href="{% if v.slug == 'home' %}{% url 'home' %}{% else %}{% if v.slug|fine_url != 0 or v.slug == '#' %}{{ v.slug }}{% else %}{% url 'page' v.slug %}{% endif %}{% endif %}" {% if v.id|count_nav != 0 %} class="dropdown-toggle" data-toggle="dropdown" {% endif %}>{{ v.name }}</a>
+            {% if v.id|count_nav != 0 %}
+                <ul class="dropdown-menu">
+                    {% navbar v.id|load_nav_by_parent_id default %}
+                </ul>
+            {% endif %}
+        </li>
+    {% endif %}
+    {% if v.type == 'menu_post' %}
+        <li class="dropdown mega-menu-fullwidth">
+            <a href="{% url 'page' v.slug %}" class="dropdown-toggle" data-toggle="dropdown">{{ v.name }}</a>
+            <ul class="dropdown-menu">
+                <li>
+                    <div class="mega-menu-content">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-4 md-margin-bottom-30">
+                                    {% for p in v.slug|load_post_by_nav_2 %}
+                                        <div class="blog-thumb margin-bottom-20">
+                                            <div class="blog-thumb-hover">
+                                                <img src="/media/image/thumbnail/128x72/{{ p.image }}" alt="">
+                                                <a class="hover-grad" href="{% url 'post-detail' v.slug p.slug %}"><i class="fa fa-link"></i></a>
+                                            </div>
+                                            <div class="blog-thumb-desc">
+                                                <h3><a href="{% url 'post-detail' v.slug p.slug %}">{{ p.title }}</a></h3>
+                                                <ul class="blog-thumb-info">
+                                                    <li>{{ p.created_at|date }}</li>
+                                                    <li><a href="#"><i class="fa fa-comments"></i> {{ leng }}</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="col-md-4 md-margin-bottom-30">
+                                    {% for p in v.slug|load_post_by_nav_3 %}
+                                        <div class="blog-thumb margin-bottom-20">
+                                            <div class="blog-thumb-hover">
+                                                <img src="/media/image/thumbnail/128x72/{{ p.image }}" alt="">
+                                                <a class="hover-grad" href="{% url 'post-detail' v.slug p.slug %}"><i class="fa fa-link"></i></a>
+                                            </div>
+                                            <div class="blog-thumb-desc">
+                                                <h3><a href="{% url 'post-detail' v.slug p.slug %}">{{ p.title }}</a></h3>
+                                                <ul class="blog-thumb-info">
+                                                    <li>{{ p.created_at|date }}</li>
+                                                    <li><a href="#"><i class="fa fa-comments"></i> {{ leng }}</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="col-md-4 md-margin-bottom-30">
+                                    {% for p in v.slug|load_post_by_nav_4 %}
+                                        <div class="blog-thumb margin-bottom-20">
+                                            <div class="blog-thumb-hover">
+                                                <img src="/media/image/thumbnail/128x72/{{ p.image }}" alt="">
+                                                <a class="hover-grad" href="{% url 'post-detail' v.slug p.slug %}"><i class="fa fa-link"></i></a>
+                                            </div>
+                                            <div class="blog-thumb-desc">
+                                                <h3><a href="{% url 'post-detail' v.slug p.slug %}">{{ p.title }}</a></h3>
+                                                <ul class="blog-thumb-info">
+                                                    <li>{{ p.created_at|date }}</li>
+                                                    <li><a href="#"><i class="fa fa-comments"></i> {{ leng }}</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <a class="r-more pull-right" href="{% url 'page' v.slug %}">{% trans 'Read more' %}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </li>
+    {% endif %}
+    {% if v.type == 'menu_archives' %}
+    {% endif %}
+{% endfor %}

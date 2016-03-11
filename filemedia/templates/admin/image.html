@@ -1,0 +1,203 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_static admin_list filemedia_list admin_urls suit_list suit_tags mptt_admin %}
+{% load url from suit_compat %}
+
+{% block extrastyle %}
+    <link rel="stylesheet" type="text/css" href="{% static 'nifty/plugins/dropzone/dropzone.css' %}" media="all">
+    {{ block.super }}
+    {#  <link rel="stylesheet" type="text/css" href="{% static "admin/css/changelists.css" %}" />#}
+    {% if cl.formset %}
+        {#    <link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}" />#}
+    {% endif %}
+    {% if cl.formset or action_form %}
+        {% url 'admin:jsi18n' as jsi18nurl %}
+        <script type="text/javascript" src="{{ jsi18nurl|default:'../../jsi18n/' }}"></script>
+    {% endif %}
+    {{ media.css }}
+    {% if not actions_on_top and not actions_on_bottom %}
+        <style>
+            {#      #changelist table thead th:first-child {width: inherit}#}
+        </style>
+    {% endif %}
+{% endblock %}
+
+{% block searchbox %}
+    {% searchbox_form cl %}
+{% endblock %}
+{% block extrahead %}
+    {{ block.super }}
+    {{ media.js }}
+    {% if action_form %}{% if actions_on_top or actions_on_bottom %}
+        <script type="text/javascript">
+            (function ($) {
+                $(document).ready(function ($) {
+                    $("tr input.action-select").actions();
+                });
+            })(django.jQuery);
+        </script>
+    {% endif %}{% endif %}
+{% endblock %}
+
+{% block bodyclass %}change-list{% endblock %}
+
+{% if not is_popup %}
+    {% block breadcrumbs %}
+        <ol class="breadcrumb">
+            <li>
+                <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+
+            </li>
+            <li>
+                <a href="{% url 'admin:app_list' app_label=cl.opts.app_label %}">{% firstof cl.opts.app_config.verbose_name app_label|capfirst|escape %}</a>
+            </li>
+            <li class="active">{{ cl.opts.verbose_name_plural|capfirst }}</li>
+        </ol>
+    {% endblock %}
+{% endif %}
+
+{% block coltype %}flex{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="pad-btm form-inline no-padding">
+            <div class="col-sm-10 table-toolbar-left">
+                {% block search %}
+                    {% search_form cl %}
+                {% endblock %}
+            </div>
+            <div class="col-sm-2 table-toolbar-right">
+                {% block object-tools %}
+                    {% if has_add_permission %}
+                        {% block object-tools-items %}
+                            <button class="btn btn-default btn-sm btn-labeled fa fa-plus" id="add-image">
+
+                                {% blocktrans with cl.opts.verbose_name as name %}
+                                    Add {{ name }}
+                                {% endblocktrans %}
+                            </button>
+                        {% endblock %}
+                    {% endif %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+    <form id="changelist-form" action="" method="post"
+            {% if cl.formset.is_multipart %}
+          enctype="multipart/form-data"{% endif %} class="form-inline">{% csrf_token %}
+        {% if cl.formset %}
+            <div>{{ cl.formset.management_form }}</div>
+        {% endif %}
+        <div class="row">
+            <div class="col-sm-12">
+                {% block date_hierarchy %}
+                    {% if cl.date_hierarchy %}
+                        {% date_hierarchy cl %}
+                    {% endif %}
+                {% endblock %}
+
+                {% if cl.formset.errors %}
+                    <div class="alert alert-error errornote">
+                        {% blocktrans count cl.formset.errors|length as counter %}Please correct the error
+                            below.{% plural %}Please correct the errors below.{% endblocktrans %}
+                    </div>
+                    {{ cl.formset.non_form_errors }}
+                {% endif %}
+
+
+
+                {% block result_list %}
+                    <div class="dropzone" id="dropzone">
+                        {% if cl.result_count %}
+                            {% file_media_result_list cl %}
+
+                        {% else %}
+                            {% suit_bc_value 1.5 'pop' 1.6 '_popup' as POPUP_VAR %}
+                            <div class="alert alert-block alert-info" id="image-alert">
+                                {% if cl.full_result_count %}
+                                    <h4>{% trans 'Nothing found' %}!</h4>
+                                    <br>
+                                    <a href="?{% if cl.is_popup %}{{ POPUP_VAR }}=1{% endif %}">
+                                        {% trans 'Reset search and filters' %}
+                                    </a>
+                                {% else %}
+                                    {% blocktrans with cl.opts.verbose_name_plural|capfirst as name_plural %}
+                                        {{ name_plural }} are not created yet{% endblocktrans %}.
+                                    {% if has_add_permission %}
+                                        <a href="{% url cl.opts|admin_urlname:'add' %}{% if is_popup %}?{{ POPUP_VAR }}=1{% endif %}">
+                                            {% blocktrans with cl.opts.verbose_name as name %}
+                                                Add {{ name }}
+                                            {% endblocktrans %}
+                                        </a>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endblock %}
+            </div>
+        </div>
+        {% block pagination %}
+            {% if cl.result_count %}
+                <div class="row" style="margin-top: 10px">
+                    {% pagination cl %}
+                </div>
+            {% endif %}
+        {% endblock %}
+    </form>
+{% endblock %}
+{% block extrajs %}
+    <script src="{% static 'nifty/plugins/dropzone/src/dropzone.js' %}"></script>
+    <script src="{% static 'nifty/plugins/freewall/freewall.js' %}"></script>
+    <script type="text/javascript">
+        Dropzone.autoDiscover = false;
+
+        function reloadFreeWall() {
+            var wall = new freewall('.dropzone');
+            wall.reset({
+                selector: '.dz-preview',
+                animate: true,
+                gutterX: 10,
+                gutterY: 10,
+                cellW: 144,
+                cellH: 144,
+                onResize: function () {
+                    wall.fitWidth();
+                },
+                onComplete: function () {
+                }
+            });
+            return wall.fitWidth();
+        }
+        $(function () {
+            reloadFreeWall();
+            $(".mainnav-toggle").click(function () {
+
+            });
+            dzattr = $('.dz-preview').attr('style');
+            $("#add-image").dropzone({
+                url: "{% url 'admin:filemedia_image_upload' 'image' %}",
+                addRemoveLinks: false,
+                previewsContainer: '#dropzone',
+                thumbnailWidth: 144,
+                thumbnailHeight: 144,
+                previewTemplate: '<div class="dz-preview" style="' + dzattr + '"><img data-dz-thumbnail /><div class="dz-progress"><div class="progress progress-striped active" style="height: 20px; border-radius: 50px"><div data-dz-uploadprogress class="progress-bar progress-bar-success"></div></div></div></div>',
+                success: function (file, response) {
+                    var imgName = response;
+                    file.previewElement.classList.add("dz-preview");
+                    $(file.previewTemplate).find('.dz-progress').remove();
+                    console.log(response);
+                },
+                error: function (file, response) {
+                    file.previewElement.classList.add("dz-error");
+                },
+                sending: function (file, xhr, formData) {
+                    $('#image-alert').remove();
+{#                    {% if album != False %}#}
+{#                        formData.append('album', {{ album }});#}
+{#                    {% endif %}#}
+                    reloadFreeWall();
+                },
+            });
+        })
+    </script>
+{% endblock %}

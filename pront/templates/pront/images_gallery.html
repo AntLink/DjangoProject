@@ -1,0 +1,26 @@
+{% load i18n %}
+
+<div class="headline-v2 bg-color-light">
+    <h2>{% trans 'Foto' %} {{ title }}</h2>
+</div>
+<div id="grid-container" class="cbp-l-grid-agency">
+    {% for image in data %}
+        <div class="cbp-item">
+            <div class="cbp-caption">
+                <div class="cbp-caption-defaultWrap">
+                    <img src="/media/image/thumbnail/100x100/{{ image }}" alt="{{ title }}">
+                </div>
+                <div class="cbp-caption-activeWrap">
+                    <div class="cbp-l-caption-alignCenter">
+                        <div class="cbp-l-caption-body">
+                            {#                            <a href="/media/image/{{ image }}" class="cbp-lightbox" data-title="Design Object"><i class="rounded-x fa fa-search"></i></a>#}
+                            <ul class="link-captions">
+                                <li><a href="/media/image/{{ image }}" class="cbp-lightbox" data-title="{{ title }}"><i class="rounded-x fa fa-search"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>

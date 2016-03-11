@@ -1,0 +1,29 @@
+{
+  "data": {
+    "sourceAirportOrArea": "CGK",
+    "destinationAirportOrArea": "SUB",
+    "flightDate": "22-02-2016",
+    "newResult": "false",
+    "seqNo": {
+      "T": "1454143552885",
+      "C": [
+        "2016.2.22.CGK.SUB.SJ_c.1.0.0.SJ",
+        "2016.2.22.CGK.SUB.GA_c.1.0.0.GA"
+      ],
+      "NC": null,
+      "departure": null,
+      "arrival": null
+    },
+    "numSeats": {
+      "numAdults": "1",
+      "numChildren": "0",
+      "numInfants": "0"
+    },
+    "currency": "IDR"
+  },
+  "context": {
+    "tvLifetime": "hb8czrSD5d739KUMaBPWLV5j5yCCTZ2ZNFF63IAKHf81X7pVPad7JI1NwY0kHwkZWPXHHNXZKcEYAuoOLqSzSTYF9XtfJGn0+Scq5JnsaUDRrfOwg7xHNQ18tskbZv3SqI3sUWeA494vpks4bfn7JZvJHV2UDRPToxaJOl/O/scMPRnZgcrK/HFf0owmkkAXrg4fRPzfW1ZI4lpD/YcgnBbX5haAOHXJrYzele6icQanhEC0pvz7btArW1UP8yCbXk9T69fmODdKuodQhcNB3UgpUxusya+zqUxamOb9SycUpjQsYhvSFplsOr2xNB0BPRObMb8u2UE0QxOPtJNtEvWTmC/jqmpvCTcGRQXDcDeLtx4MZiBid4f4B+h1kx3k",
+    "tvSession": "1F1UZqFUp1aLP58qb9yAEHsbTybtGWaqPv8FxG8lpDa39HgAqm0IFpZSPNDWutxIsgFyvlpWdDZ3ecrvRJyI94RBKrZU+MVbnhQ1XSp3gFM="
+  },
+  "clientInterface": "desktop"
+}

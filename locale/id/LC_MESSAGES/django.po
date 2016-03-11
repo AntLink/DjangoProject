@@ -1,0 +1,1366 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-12-08 07:02+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: appearance/admin.py:7 appearance/admin.py:12 suit/admin.py:60
+#: suit/admin.py:78 suit/admin.py:111 word/admin.py:100
+msgid "Bulk Actions"
+msgstr "Tindakan Masal"
+
+#: appearance/apps.py:6
+msgid "Appearance"
+msgstr "Tampilan"
+
+#: appearance/models.py:8
+msgid "Menu"
+msgstr "Menu"
+
+#: appearance/models.py:9
+msgid "Menus"
+msgstr "Menu"
+
+#: appearance/models.py:14 filemedia/models.py:12 word/models.py:9
+msgid "Name"
+msgstr "Nama"
+
+#: appearance/models.py:15 filemedia/models.py:15
+#: suit/templates/admin_doc/model_detail.html:45 word/models.py:13
+#: word/models.py:41
+msgid "Type"
+msgstr "Tipe"
+
+#: appearance/models.py:16 word/models.py:39
+msgid "Content"
+msgstr "Isi"
+
+#: appearance/models.py:17 word/models.py:15
+msgid "Position"
+msgstr "Posisi"
+
+#: appearance/models.py:20
+msgid "Widget"
+msgstr "Widget"
+
+#: appearance/models.py:21
+msgid "Widgets"
+msgstr "Widget"
+
+#: filemedia/admin.py:289 filemedia/admin.py:536 suit/templates/404.html:4
+msgid "Page not found"
+msgstr ""
+
+#: filemedia/admin.py:314 filemedia/admin.py:364
+msgid "Database error"
+msgstr ""
+
+#: filemedia/admin.py:384
+msgid ""
+"Items must be selected in order to perform actions on them. No items have "
+"been changed."
+msgstr ""
+
+#: filemedia/admin.py:437
+#, python-format
+msgid "%(count)s %(name)s was changed successfully."
+msgid_plural "%(count)s %(name)s were changed successfully."
+msgstr[0] ""
+msgstr[1] ""
+
+#: filemedia/admin.py:464
+#, python-format
+msgid "%(total_count)s selected"
+msgid_plural "All %(total_count)s selected"
+msgstr[0] ""
+msgstr[1] ""
+
+#: filemedia/admin.py:472
+#, python-format
+msgid "0 of %(cnt)s selected"
+msgstr ""
+
+#: filemedia/admin.py:578 filemedia/models.py:15 word/models.py:40
+#: word/templates/admin/post/change_form.html:194
+msgid "Image"
+msgstr "Gambar"
+
+#: filemedia/admin.py:578
+msgid "Images"
+msgstr "Gambar"
+
+#: filemedia/admin.py:579 filemedia/models.py:15
+msgid "Video"
+msgstr "Vidio"
+
+#: filemedia/admin.py:579
+msgid "Videos"
+msgstr "Vidio"
+
+#: filemedia/admin.py:580 filemedia/models.py:14 filemedia/models.py:15
+msgid "File"
+msgstr "Dokumen"
+
+#: filemedia/admin.py:580
+msgid "Files"
+msgstr "Dokumen"
+
+#: filemedia/forms.py:18 filemedia/models.py:16
+#: suit/templates/admin_doc/model_detail.html:46 word/models.py:14
+msgid "Description"
+msgstr "Keterangan"
+
+#: filemedia/forms.py:22 word/forms.py:102
+msgid "Maximum can be entered is 255 text characters"
+msgstr "Maksimum dapat dimasukkan adalah 255 karakter teks"
+
+#: filemedia/forms.py:26 filemedia/models.py:59
+#: suit/templates/admin_doc/index.html:16
+#: suit/templates/admin_doc/template_tag_index.html:9 word/admin.py:126
+#: word/forms.py:20 word/models.py:99
+msgid "Tags"
+msgstr "Lebel"
+
+#: filemedia/forms.py:28 word/forms.py:22
+msgid "Select Tags"
+msgstr "Pilih Lebel"
+
+#: filemedia/models.py:11 word/models.py:46
+msgid "Relationships"
+msgstr ""
+
+#: filemedia/models.py:13
+msgid "Unique Name"
+msgstr ""
+
+#: filemedia/models.py:17 word/models.py:44
+msgid "Created At"
+msgstr "Tanggal"
+
+#: filemedia/models.py:18 word/models.py:45
+msgid "Updated At"
+msgstr "Di Perbaharui"
+
+#: filemedia/models.py:45
+msgid "Edit"
+msgstr "Ubah"
+
+#: filemedia/models.py:46 suit/templates/admin/delete_confirmation.html:25
+#: suit/templates/admin/delete_confirmation.html:61
+#: suit/templates/admin/page_submit_line.html:8
+#: suit/templates/admin/submit_line.html:16
+msgid "Delete"
+msgstr "Hapus"
+
+#: filemedia/models.py:50
+msgid "Gambar"
+msgstr ""
+
+#: filemedia/templates/admin/album/change_form.html:21
+#: word/templates/admin/post/change_form.html:30
+msgid "You have unsaved changes"
+msgstr ""
+
+#: filemedia/templates/admin/album/change_form.html:50
+#: filemedia/templates/admin/album/change_form.html:77
+#: suit/templates/admin/change_form.html:52
+#: suit/templates/admin/change_form.html:79
+#: suit/templates/admin/change_list.html:72
+#: suit/templates/admin/change_list.html:174
+#: suit/templates/admin/index.html:43
+#: word/templates/admin/category/category_change_list.html:69
+#: word/templates/admin/post/change_form.html:60
+#: word/templates/admin/post/change_form.html:87
+msgid "Add"
+msgstr "Tambah"
+
+#: filemedia/templates/admin/album/change_form.html:61
+#: filemedia/templates/admin/album/change_list.html:19
+#: filemedia/templates/admin/image.html:47
+#: filemedia/templates/admin/image/change_list.html:21
+#: filemedia/templates/admin/image/delete_selected_confirmation.html:8
+#: suit/templates/admin/app_index.html:9
+#: suit/templates/admin/auth/user/change_password.html:20
+#: suit/templates/admin/base.html:212 suit/templates/admin/change_form.html:63
+#: suit/templates/admin/change_list.html:45
+#: suit/templates/admin/delete_confirmation.html:8
+#: suit/templates/admin/delete_selected_confirmation.html:8
+#: suit/templates/admin/object_history.html:9
+#: suit/templates/admin_doc/bookmarklets.html:6
+#: suit/templates/admin_doc/index.html:6
+#: suit/templates/admin_doc/missing_docutils.html:6
+#: suit/templates/admin_doc/model_detail.html:20
+#: suit/templates/admin_doc/model_index.html:8
+#: suit/templates/admin_doc/template_detail.html:6
+#: suit/templates/admin_doc/template_filter_index.html:7
+#: suit/templates/admin_doc/template_tag_index.html:7
+#: suit/templates/admin_doc/view_detail.html:6
+#: suit/templates/admin_doc/view_index.html:7
+#: suit/templates/registration/logged_out.html:8
+#: suit/templates/registration/password_change_done.html:6
+#: suit/templates/registration/password_change_form.html:13
+#: suit/templates/reversion/recover_form.html:8
+#: suit/templates/reversion/recover_list.html:8
+#: suit/templates/reversion/revision_form.html:8
+#: suit/templates/suit/menu.html:15
+#: word/templates/admin/category/category_change_list.html:46
+#: word/templates/admin/post/change_form.html:71
+msgid "Home"
+msgstr "Beranda"
+
+#: filemedia/templates/admin/album/change_form.html:88
+#: suit/templates/admin/change_form.html:90
+#: word/templates/admin/post/change_form.html:98
+msgid ""
+"\n"
+"                Please correct the error below.\n"
+"            "
+msgid_plural ""
+"\n"
+"                Please correct the errors below.\n"
+"            "
+msgstr[0] ""
+msgstr[1] ""
+
+#: filemedia/templates/admin/album/change_form.html:193
+#: suit/templates/admin/change_form.html:194
+#: suit/templates/admin/object_history.html:28
+#: suit/templates/admin/object_history.html:39
+#: suit/templates/reversion/revision_form.html:16
+#: word/templates/admin/post/change_form.html:131
+msgid "History"
+msgstr ""
+
+#: filemedia/templates/admin/album/change_form.html:198
+#: suit/templates/admin/change_form.html:199
+#: suit/templates/admin/edit_inline/stacked.html:15
+#: word/templates/admin/post/change_form.html:137
+msgid "View on site"
+msgstr "Lihat Di Situs"
+
+#: filemedia/templates/admin/album/change_form.html:203
+#: filemedia/templates/admin/image.html:129
+#: suit/templates/admin/change_form.html:204
+#: word/templates/admin/post/change_form.html:142
+#, python-format
+msgid ""
+"\n"
+"                                                Add %(name)s\n"
+"                                            "
+msgstr ""
+
+#: filemedia/templates/admin/album/change_list.html:22
+#: filemedia/templates/admin/image/change_list.html:24 setting/admin.py:41
+msgid "Media"
+msgstr "Media"
+
+#: filemedia/templates/admin/album/change_list.html:24
+msgid "Album"
+msgstr "Album"
+
+#: filemedia/templates/admin/image.html:74
+#, python-format
+msgid ""
+"\n"
+"                                    Add %(name)s\n"
+"                                "
+msgstr ""
+
+#: filemedia/templates/admin/image.html:100
+msgid ""
+"Please correct the error\n"
+"                            below."
+msgid_plural "Please correct the errors below."
+msgstr[0] ""
+msgstr[1] ""
+
+#: filemedia/templates/admin/image.html:117
+#: filemedia/templates/admin/image/change_list.html:161
+#: suit/templates/admin/change_list.html:164
+#: word/templates/admin/category/category_change_list.html:157
+msgid "Nothing found"
+msgstr ""
+
+#: filemedia/templates/admin/image.html:120
+#: filemedia/templates/admin/image/change_list.html:164
+#: suit/templates/admin/change_list.html:167
+#: word/templates/admin/category/category_change_list.html:160
+msgid "Reset search and filters"
+msgstr ""
+
+#: filemedia/templates/admin/image.html:123
+#, python-format
+msgid ""
+"\n"
+"                                        %(name_plural)s are not created yet"
+msgstr ""
+"\n"
+"                                    Tidak ada %(name_plural)s yang di "
+"tambahkan"
+
+#: filemedia/templates/admin/image/change_list.html:79
+#, fuzzy
+#| msgid "Add image"
+msgid "Add Image"
+msgstr "Tambahkan gambar"
+
+#: filemedia/templates/admin/image/change_list.html:99
+#: filemedia/templates/admin/image/change_list.html:141
+#: suit/templates/admin/change_list.html:118
+#: suit/templates/admin/change_list.html:143
+#: word/templates/admin/category/category_change_list.html:111
+#: word/templates/admin/category/category_change_list.html:137
+msgid "Showing"
+msgstr "Menampilkan"
+
+#: filemedia/templates/admin/image/change_list.html:101
+#: filemedia/templates/admin/image/change_list.html:103
+#: filemedia/templates/admin/image/change_list.html:143
+#: filemedia/templates/admin/image/change_list.html:145
+#: suit/templates/admin/change_list.html:120
+#: suit/templates/admin/change_list.html:122
+#: suit/templates/admin/change_list.html:145
+#: suit/templates/admin/change_list.html:147
+#: word/templates/admin/category/category_change_list.html:113
+#: word/templates/admin/category/category_change_list.html:115
+#: word/templates/admin/category/category_change_list.html:139
+#: word/templates/admin/category/category_change_list.html:141
+msgid "Items"
+msgstr "Item"
+
+#: filemedia/templates/admin/image/change_list.html:167
+#: word/templates/admin/category/category_change_list.html:163
+#, python-format
+msgid ""
+"\n"
+"                                    %(name_plural)s are not created yet"
+msgstr ""
+"\n"
+"                                    Tidak ada %(name_plural)s yang di "
+"tambahkan"
+
+#: filemedia/templates/admin/image/delete_selected_confirmation.html:20
+#: suit/templates/admin/delete_selected_confirmation.html:20
+msgid "Delete multiple objects"
+msgstr ""
+
+#: filemedia/templates/admin/image/delete_selected_confirmation.html:30
+#, python-format
+msgid ""
+"Deleting the selected %(objects_name)s would result in deleting related "
+"objects,\n"
+"                        but your\n"
+"                        account doesn't have permission to delete the "
+"following types of objects:"
+msgstr ""
+
+#: filemedia/templates/admin/image/delete_selected_confirmation.html:42
+#, python-format
+msgid ""
+"Deleting the selected %(objects_name)s would require deleting the following\n"
+"                        protected\n"
+"                        related objects:"
+msgstr ""
+
+#: filemedia/templates/admin/image/delete_selected_confirmation.html:62
+#: suit/templates/admin/delete_selected_confirmation.html:56
+msgid "Confirm deletion"
+msgstr "Konfirmasi penghapusan"
+
+#: filemedia/templates/admin/image/delete_selected_confirmation.html:65
+#, python-format
+msgid ""
+"Are you sure you want to delete the selected %(objects_name)s? All of the\n"
+"                            following\n"
+"                            objects and their related items will be deleted:"
+msgstr ""
+
+#: filemedia/templates/admin/image/delete_selected_confirmation.html:74
+#: suit/templates/admin/delete_confirmation.html:73
+#: suit/templates/admin/delete_selected_confirmation.html:69
+msgid "Yes, I'm sure"
+msgstr "Ya saya yakin"
+
+#: filemedia/views.py:53 wysiwyg/views.py:56
+msgid ""
+"ImproperlyConfigured: Neither Pillow nor PIL could be imported: No module "
+"named 'Image'"
+msgstr ""
+
+#: filemedia/views.py:66 wysiwyg/views.py:69
+msgid "Invalid file."
+msgstr ""
+
+#: page/admin.py:33
+msgid "All Page"
+msgstr "Halaman"
+
+#: page/admin.py:33 page/models.py:11
+msgid "All Pages"
+msgstr "Semua Halaman"
+
+#: page/apps.py:6 page/models.py:10
+msgid "Page"
+msgstr "Halaman"
+
+#: setting/admin.py:37
+msgid "General"
+msgstr "Umum"
+
+#: setting/admin.py:38
+msgid "Writing"
+msgstr "Tulisan"
+
+#: setting/admin.py:39
+msgid "Reading"
+msgstr "Bacaan"
+
+#: setting/admin.py:40
+msgid "Discussion"
+msgstr "Diskusi"
+
+#: setting/admin.py:42
+msgid "Permalink"
+msgstr "Tautan"
+
+#: setting/models.py:12
+msgid "Setting"
+msgstr "Pengaturan"
+
+#: suit/admin.py:22
+msgid "Authorization"
+msgstr "Otoritas"
+
+#: suit/admin.py:24
+#, python-format
+msgid "Delete selected %(verbose_name_plural)s"
+msgstr "Hapus %(verbose_name_plural)s yang terpilih"
+
+#: suit/templates/403.html:4
+msgid "forbidden"
+msgstr ""
+
+#: suit/templates/403.html:6 suit/templates/404.html:6
+#: suit/templates/500.html:6 suit/templates/suit/error_base.html:76
+msgid "error"
+msgstr ""
+
+#: suit/templates/403.html:9
+msgid "We're sorry, but the requested action is forbidden"
+msgstr ""
+
+#: suit/templates/404.html:9
+msgid "We're sorry, but the requested page could not be found."
+msgstr ""
+
+#: suit/templates/500.html:4
+msgid "Server Error"
+msgstr ""
+
+#: suit/templates/500.html:9
+msgid ""
+"There's been an error. It's been reported to the site administrators via e-"
+"mail and should be fixed shortly. Thanks for your patience."
+msgstr ""
+
+#: suit/templates/admin/actions.html:14
+msgid "Run the selected action"
+msgstr ""
+
+#: suit/templates/admin/actions.html:15
+msgid "Submit"
+msgstr "Terapkan"
+
+#: suit/templates/admin/app_index.html:13
+#, python-format
+msgid ""
+"\n"
+"                        %(name)s\n"
+"                    "
+msgstr ""
+
+#: suit/templates/admin/auth/user/add_form.html:6
+msgid ""
+"First, enter a username and password. Then, you'll be able to edit more user "
+"options."
+msgstr ""
+
+#: suit/templates/admin/auth/user/add_form.html:8
+msgid "Enter a username and password."
+msgstr ""
+
+#: suit/templates/admin/auth/user/change_password.html:32
+#: suit/templates/admin/auth/user/change_password.html:79
+#: suit/templates/admin/base.html:151
+msgid "Change password"
+msgstr ""
+
+#: suit/templates/admin/auth/user/change_password.html:46
+msgid ""
+"Please correct\n"
+"                        the error below."
+msgid_plural " Please correct the errors below."
+msgstr[0] ""
+msgstr[1] ""
+
+#: suit/templates/admin/auth/user/change_password.html:50
+#, python-format
+msgid ""
+"Enter a new password for\n"
+"                    the user <strong>%(username)s</strong>."
+msgstr ""
+
+#: suit/templates/admin/auth/user/change_password.html:57
+msgid "Password"
+msgstr ""
+
+#: suit/templates/admin/auth/user/change_password.html:67
+#: suit/templates/registration/password_change_form.html:70
+msgid "Password (again)"
+msgstr ""
+
+#: suit/templates/admin/auth/user/change_password.html:72
+msgid "Enter the same password as above, for verification."
+msgstr ""
+
+#: suit/templates/admin/base.html:121
+#: suit/templates/admin_doc/bookmarklets.html:7
+#: suit/templates/admin_doc/index.html:7
+#: suit/templates/admin_doc/index.html:10
+#: suit/templates/admin_doc/index.html:11
+#: suit/templates/admin_doc/missing_docutils.html:7
+#: suit/templates/admin_doc/missing_docutils.html:12
+#: suit/templates/admin_doc/model_detail.html:21
+#: suit/templates/admin_doc/model_index.html:9
+#: suit/templates/admin_doc/template_detail.html:7
+#: suit/templates/admin_doc/template_filter_index.html:8
+#: suit/templates/admin_doc/template_tag_index.html:8
+#: suit/templates/admin_doc/view_detail.html:7
+#: suit/templates/admin_doc/view_index.html:8
+msgid "Documentation"
+msgstr ""
+
+#: suit/templates/admin/base.html:135
+msgid "Welcome,"
+msgstr ""
+
+#: suit/templates/admin/base.html:157
+msgid "Log out"
+msgstr ""
+
+#: suit/templates/admin/change_list.html:73
+#: word/templates/admin/category/category_change_list.html:70
+#, python-format
+msgid ""
+"\n"
+"                                    %(name)s\n"
+"                                "
+msgstr ""
+
+#: suit/templates/admin/change_list.html:97
+msgid ""
+"\n"
+"                        Please correct the error below. "
+msgid_plural ""
+" Please correct the errors below.\n"
+"                    "
+msgstr[0] ""
+
+#: suit/templates/admin/change_list.html:118
+msgid "of"
+msgstr "dari"
+
+#: suit/templates/admin/change_list.html:170
+#, python-format
+msgid ""
+"\n"
+"                                %(name_plural)s are not created yet"
+msgstr ""
+"\n"
+"                                    Tidak ada %(name_plural)s yang di "
+"tambahkan"
+
+#: suit/templates/admin/change_list.html:175
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "                                Are you sure you want to delete the "
+#| "%(object_name)s \"%(escaped_object)s\"? All of the following related "
+#| "items will be deleted:\n"
+#| "                            "
+msgid ""
+"\n"
+"                                        %(name)s\n"
+"                                    "
+msgstr ""
+"\n"
+"                                Apakah anda yakin ingin menghapus "
+"%(object_name)s \"%(escaped_object)s\"? Semua item terkait berikut akan "
+"terhapus:\n"
+"                            "
+
+#: suit/templates/admin/delete_confirmation.html:35
+#, python-format
+msgid ""
+"\n"
+"                            Deleting the %(object_name)s "
+"'%(escaped_object)s' would result in deleting related objects, but your "
+"account doesn't have permission to delete the following types of objects:\n"
+"                        "
+msgstr ""
+
+#: suit/templates/admin/delete_confirmation.html:47
+#, python-format
+msgid ""
+"\n"
+"                            Deleting the %(object_name)s "
+"'%(escaped_object)s' would require deleting the following protected related "
+"objects:\n"
+"                        "
+msgstr ""
+
+#: suit/templates/admin/delete_confirmation.html:64
+#, python-format
+msgid ""
+"\n"
+"                                Are you sure you want to delete the "
+"%(object_name)s \"%(escaped_object)s\"? All of the following related items "
+"will be deleted:\n"
+"                            "
+msgstr ""
+"\n"
+"                                Apakah anda yakin ingin menghapus "
+"%(object_name)s \"%(escaped_object)s\"? Semua item terkait berikut akan "
+"terhapus:\n"
+"                            "
+
+#: suit/templates/admin/delete_selected_confirmation.html:29
+#, python-format
+msgid ""
+"Deleting the selected %(objects_name)s would result in deleting related "
+"objects, but your account doesn't have permission to delete the following "
+"types of objects:"
+msgstr ""
+
+#: suit/templates/admin/delete_selected_confirmation.html:38
+#, python-format
+msgid ""
+"\n"
+"                        Deleting the selected %(objects_name)s would require "
+"deleting the following protected related objects:\n"
+"                    "
+msgstr ""
+
+#: suit/templates/admin/delete_selected_confirmation.html:59
+#, python-format
+msgid ""
+"\n"
+"                            Are you sure you want to delete the selected "
+"%(objects_name)s? All of the following objects and their related items will "
+"be deleted:\n"
+"                        "
+msgstr ""
+"\n"
+"                            Apakah Anda yakin ingin menghapus "
+"%(objects_name)s yang dipilih? Semua objek berikut dan item terkait akan di "
+"hapus:\n"
+"                        "
+
+#: suit/templates/admin/edit_inline/stacked.html:73
+#: suit/templates/admin/edit_inline/tabular.html:128
+#, python-format
+msgid "Add another %(verbose_name)s"
+msgstr ""
+
+#: suit/templates/admin/edit_inline/stacked.html:76
+#: suit/templates/admin/edit_inline/tabular.html:131
+msgid "Remove"
+msgstr ""
+
+#: suit/templates/admin/edit_inline/tabular.html:18
+#: suit/templates/admin/edit_inline/tabular.html:68
+#: suit/templates/admin/index.html:39
+msgid "Change"
+msgstr ""
+
+#: suit/templates/admin/edit_inline/tabular.html:19
+msgid "Delete?"
+msgstr ""
+
+#: suit/templates/admin/index.html:25
+#, python-format
+msgid "Models available in the %(name)s application."
+msgstr ""
+
+#: suit/templates/admin/index.html:28
+msgid "App"
+msgstr ""
+
+#: suit/templates/admin/index.html:29
+#: suit/templates/admin/object_history.html:50
+msgid "Action"
+msgstr ""
+
+#: suit/templates/admin/index.html:58
+msgid "You don't have permission to edit anything."
+msgstr ""
+
+#: suit/templates/admin/index.html:64
+msgid "My Actions"
+msgstr ""
+
+#: suit/templates/admin/index.html:70
+msgid "None available"
+msgstr ""
+
+#: suit/templates/admin/index.html:79
+msgid "added"
+msgstr ""
+
+#: suit/templates/admin/index.html:80
+msgid "changed"
+msgstr ""
+
+#: suit/templates/admin/index.html:81
+msgid "deleted"
+msgstr ""
+
+#: suit/templates/admin/index.html:87
+msgid "Unknown content"
+msgstr ""
+
+#: suit/templates/admin/login.html:44
+msgid "Sign In to your account"
+msgstr ""
+
+#: suit/templates/admin/login.html:68
+msgid "Forgotten your password or username?"
+msgstr ""
+
+#: suit/templates/admin/login.html:74
+msgid "Sign In"
+msgstr ""
+
+#: suit/templates/admin/object_history.html:48
+#: suit/templates/reversion/object_history.html:15
+#: suit/templates/reversion/recover_list.html:27
+msgid "Date/time"
+msgstr ""
+
+#: suit/templates/admin/object_history.html:49
+#: suit/templates/reversion/object_history.html:16
+msgid "User"
+msgstr ""
+
+#: suit/templates/admin/object_history.html:65
+#: suit/templates/reversion/object_history.html:36
+msgid ""
+"This object doesn't have a change history. It probably wasn't added via this "
+"admin site."
+msgstr ""
+
+#: suit/templates/admin/page_submit_line.html:3
+#: suit/templates/admin/submit_line.html:3
+msgid "Save"
+msgstr ""
+
+#: suit/templates/admin/page_submit_line.html:4
+#: suit/templates/admin/submit_line.html:6
+msgid "Save and continue editing"
+msgstr ""
+
+#: suit/templates/admin/page_submit_line.html:5
+#: suit/templates/admin/submit_line.html:9
+msgid "Save as new"
+msgstr ""
+
+#: suit/templates/admin/page_submit_line.html:6
+#: suit/templates/admin/submit_line.html:12
+msgid "Save and add another"
+msgstr ""
+
+#: suit/templates/admin/page_submit_line.html:14
+#, python-format
+msgid "Delete %(language)s translation"
+msgstr ""
+
+#: suit/templates/admin/related_widget_wrapper.html:15
+#, python-format
+msgid "Add another %(model)s"
+msgstr ""
+
+#: suit/templates/admin/search_form.html:32
+msgid "Filter"
+msgstr ""
+
+#: suit/templates/admin/search_form.html:39
+#, python-format
+msgid ""
+"\n"
+"                                %(counter)s\n"
+"                                result\n"
+"                            "
+msgid_plural ""
+"\n"
+"                                %(counter)s\n"
+"                                results\n"
+"                            "
+msgstr[0] ""
+msgstr[1] ""
+
+#: suit/templates/admin/search_form.html:48
+#, python-format
+msgid ""
+"\n"
+"                                    %(full_result_count)s\n"
+"                                    total\n"
+"                                "
+msgstr ""
+
+#: suit/templates/admin/searchbox_form.html:9
+msgid "Search"
+msgstr ""
+
+#: suit/templates/admin_doc/bookmarklets.html:8
+#: suit/templates/admin_doc/index.html:32
+msgid "Bookmarklets"
+msgstr ""
+
+#: suit/templates/admin_doc/bookmarklets.html:11
+#: suit/templates/admin_doc/bookmarklets.html:14
+msgid "Documentation bookmarklets"
+msgstr ""
+
+#: suit/templates/admin_doc/bookmarklets.html:20
+msgid ""
+"\n"
+"                <p class=\"help\">To install bookmarklets, drag the link to "
+"your bookmarks\n"
+"                    toolbar, or right-click the link and add it to your "
+"bookmarks. Now you can\n"
+"                    select the bookmarklet from any page in the site. Note "
+"that some of these\n"
+"                    bookmarklets require you to be viewing the site from a "
+"computer designated\n"
+"                    as \"internal\" (talk to your system administrator if "
+"you aren't sure if\n"
+"                    your computer is \"internal\").</p>\n"
+"            "
+msgstr ""
+
+#: suit/templates/admin_doc/bookmarklets.html:30
+msgid "Documentation for this page"
+msgstr ""
+
+#: suit/templates/admin_doc/bookmarklets.html:33
+msgid ""
+"Jumps you from any page to the documentation for the view that generates "
+"that page."
+msgstr ""
+
+#: suit/templates/admin_doc/bookmarklets.html:36
+msgid "Show object ID"
+msgstr ""
+
+#: suit/templates/admin_doc/bookmarklets.html:39
+msgid ""
+"Shows the content-type and unique ID for pages that represent a single "
+"object."
+msgstr ""
+
+#: suit/templates/admin_doc/bookmarklets.html:42
+msgid "Edit this object (current window)"
+msgstr ""
+
+#: suit/templates/admin_doc/bookmarklets.html:45
+msgid "Jumps to the admin page for pages that represent a single object."
+msgstr ""
+
+#: suit/templates/admin_doc/bookmarklets.html:48
+msgid "Edit this object (new window)"
+msgstr ""
+
+#: suit/templates/admin_doc/bookmarklets.html:51
+msgid "As above, but opens the admin page in a new window."
+msgstr ""
+
+#: suit/templates/admin_doc/index.html:18
+msgid "List of all the template tags and their functions."
+msgstr ""
+
+#: suit/templates/admin_doc/index.html:20
+#: suit/templates/admin_doc/template_filter_index.html:9
+msgid "Filters"
+msgstr ""
+
+#: suit/templates/admin_doc/index.html:22
+msgid ""
+"Filters are actions which can be applied to variables in a template to alter "
+"the output."
+msgstr ""
+
+#: suit/templates/admin_doc/index.html:24
+#: suit/templates/admin_doc/model_detail.html:22
+#: suit/templates/admin_doc/model_index.html:10
+#: suit/templates/admin_doc/model_index.html:14
+msgid "Models"
+msgstr ""
+
+#: suit/templates/admin_doc/index.html:26
+msgid ""
+"Models are descriptions of all the objects in the system and their "
+"associated fields. Each model has a list of fields which can be accessed as "
+"template variables"
+msgstr ""
+
+#: suit/templates/admin_doc/index.html:28
+#: suit/templates/admin_doc/view_detail.html:8
+#: suit/templates/admin_doc/view_index.html:9
+#: suit/templates/admin_doc/view_index.html:12
+msgid "Views"
+msgstr ""
+
+#: suit/templates/admin_doc/index.html:30
+msgid ""
+"Each page on the public site is generated by a view. The view defines which "
+"template is used to generate the page and which objects are available to "
+"that template."
+msgstr ""
+
+#: suit/templates/admin_doc/index.html:34
+msgid "Tools for your browser to quickly access admin functionality."
+msgstr ""
+
+#: suit/templates/admin_doc/missing_docutils.html:10
+msgid "Please install docutils"
+msgstr ""
+
+#: suit/templates/admin_doc/missing_docutils.html:16
+#, python-format
+msgid ""
+"The admin documentation system requires Python's\n"
+"                <a href=\"%(link)s\">docutils</a> library."
+msgstr ""
+
+#: suit/templates/admin_doc/missing_docutils.html:19
+#, python-format
+msgid ""
+"Please ask your administrators to install\n"
+"                <a href=\"%(link)s\">docutils</a>."
+msgstr ""
+
+#: suit/templates/admin_doc/model_detail.html:27
+#, python-format
+msgid "Model: %(name)s"
+msgstr ""
+
+#: suit/templates/admin_doc/model_detail.html:44
+msgid "Field"
+msgstr ""
+
+#: suit/templates/admin_doc/model_detail.html:63
+msgid "Back to Model Documentation"
+msgstr ""
+
+#: suit/templates/admin_doc/model_index.html:16
+msgid "Model documentation"
+msgstr ""
+
+#: suit/templates/admin_doc/model_index.html:41
+msgid "Model groups"
+msgstr ""
+
+#: suit/templates/admin_doc/template_detail.html:8
+msgid "Templates"
+msgstr ""
+
+#: suit/templates/admin_doc/template_detail.html:13
+#, python-format
+msgid "Template: %(name)s"
+msgstr ""
+
+#: suit/templates/admin_doc/template_detail.html:16
+#, python-format
+msgid "Template: \"%(name)s\""
+msgstr ""
+
+#: suit/templates/admin_doc/template_detail.html:18
+#, python-format
+msgid "Search path for template \"%(name)s\":"
+msgstr ""
+
+#: suit/templates/admin_doc/template_detail.html:22
+msgid "(does not exist)"
+msgstr ""
+
+#: suit/templates/admin_doc/template_detail.html:26
+msgid "Back to Documentation"
+msgstr ""
+
+#: suit/templates/admin_doc/template_filter_index.html:12
+msgid "Template filters"
+msgstr ""
+
+#: suit/templates/admin_doc/template_filter_index.html:15
+msgid "Template filter documentation"
+msgstr ""
+
+#: suit/templates/admin_doc/template_filter_index.html:23
+#: suit/templates/admin_doc/template_filter_index.html:43
+msgid "Built-in filters"
+msgstr ""
+
+#: suit/templates/admin_doc/template_filter_index.html:25
+#, python-format
+msgid ""
+"To use these\n"
+"                            filters, put <code>%(code)s</code> in your "
+"template before using the\n"
+"                            filter."
+msgstr ""
+
+#: suit/templates/admin_doc/template_tag_index.html:12
+msgid "Template tags"
+msgstr ""
+
+#: suit/templates/admin_doc/template_tag_index.html:15
+msgid "Template tag documentation"
+msgstr ""
+
+#: suit/templates/admin_doc/template_tag_index.html:22
+#: suit/templates/admin_doc/template_tag_index.html:42
+msgid "Built-in tags"
+msgstr ""
+
+#: suit/templates/admin_doc/template_tag_index.html:24
+#, python-format
+msgid ""
+"To use these\n"
+"                            tags,\n"
+"                            put <code>%(code)s</code> in your template "
+"before using the tag."
+msgstr ""
+
+#: suit/templates/admin_doc/view_detail.html:12
+#, python-format
+msgid "View: %(name)s"
+msgstr ""
+
+#: suit/templates/admin_doc/view_detail.html:23
+msgid "Context:"
+msgstr ""
+
+#: suit/templates/admin_doc/view_detail.html:28
+msgid "Templates:"
+msgstr ""
+
+#: suit/templates/admin_doc/view_detail.html:33
+msgid "Back to Views Documentation"
+msgstr ""
+
+#: suit/templates/admin_doc/view_index.html:14
+msgid "View documentation"
+msgstr ""
+
+#: suit/templates/admin_doc/view_index.html:23
+#, python-format
+msgid ""
+"Views by namespace\n"
+"                                %(name)s"
+msgstr ""
+
+#: suit/templates/admin_doc/view_index.html:26
+msgid "Views by empty namespace"
+msgstr ""
+
+#: suit/templates/admin_doc/view_index.html:36
+#, python-format
+msgid ""
+"\n"
+"                                    View function: <code>%(full_name)s</"
+"code>. Name: <code>%(url_name)s</code>.\n"
+"                                "
+msgstr ""
+
+#: suit/templates/admin_doc/view_index.html:47
+msgid "Jump to namespace"
+msgstr ""
+
+#: suit/templates/admin_doc/view_index.html:52
+msgid "Empty namespace"
+msgstr ""
+
+#: suit/templates/registration/logged_out.html:10
+msgid "Logout"
+msgstr ""
+
+#: suit/templates/registration/logged_out.html:17
+msgid "Thanks for spending some quality time with the Web site today."
+msgstr ""
+
+#: suit/templates/registration/logged_out.html:19
+msgid "Log in again"
+msgstr ""
+
+#: suit/templates/registration/password_change_done.html:8
+#: suit/templates/registration/password_change_form.html:15
+#: suit/templates/registration/password_change_form.html:19
+msgid "Password change"
+msgstr ""
+
+#: suit/templates/registration/password_change_done.html:16
+msgid "Your password was changed."
+msgstr ""
+
+#: suit/templates/registration/password_change_form.html:24
+msgid ""
+"Please correct the error\n"
+"                below."
+msgid_plural " Please correct the errors below."
+msgstr[0] ""
+msgstr[1] ""
+
+#: suit/templates/registration/password_change_form.html:33
+msgid ""
+"Please enter your old password, for security's sake, and then enter your new "
+"password twice so we can verify you typed it in correctly."
+msgstr ""
+
+#: suit/templates/registration/password_change_form.html:38
+msgid " Password chang"
+msgstr ""
+
+#: suit/templates/registration/password_change_form.html:47
+msgid "Old password"
+msgstr ""
+
+#: suit/templates/registration/password_change_form.html:58
+msgid "New password"
+msgstr ""
+
+#: suit/templates/registration/password_change_form.html:86
+msgid "Change my password"
+msgstr ""
+
+#: suit/templates/reversion/change_list.html:8
+#: suit/templates/reversion/recover_form.html:14
+#: suit/templates/reversion/recover_list.html:14
+#, python-format
+msgid "Recover deleted %(name)s"
+msgstr ""
+
+#: suit/templates/reversion/object_history.html:8
+msgid ""
+"Choose a date from the list below to revert to a previous version of this "
+"object."
+msgstr ""
+
+#: suit/templates/reversion/object_history.html:17
+msgid "Comment"
+msgstr ""
+
+#: suit/templates/reversion/recover_form.html:22
+msgid "Press the save button below to recover this version of the object."
+msgstr ""
+
+#: suit/templates/reversion/recover_list.html:21
+msgid ""
+"Choose a date from the list below to recover a deleted version of an object."
+msgstr ""
+
+#: suit/templates/reversion/recover_list.html:41
+msgid "There are no deleted objects to recover."
+msgstr ""
+
+#: suit/templates/reversion/revision_form.html:18
+#, python-format
+msgid "Revert %(verbose_name)s"
+msgstr ""
+
+#: suit/templates/reversion/revision_form.html:31
+msgid "Press the save button below to revert to this version of the object."
+msgstr ""
+
+#: suit/templates/suit/error_base.html:87
+msgid "Close window"
+msgstr ""
+
+#: suit/templates/suit/error_base.html:90
+msgid "Go back"
+msgstr ""
+
+#: suit/templates/suit/error_base.html:93
+msgid "Go to admin home"
+msgstr ""
+
+#: suit/templatetags/suit_list.py:57
+msgid "to"
+msgstr "s/d"
+
+#: suit/widgets.py:104
+msgid "Date:"
+msgstr "Tanggal:"
+
+#: suit/widgets.py:118
+msgid "Time:"
+msgstr "Waktu:"
+
+#: word/admin.py:17 word/admin.py:30 word/admin.py:43
+#, python-format
+msgid "1 %(verbose_name)s"
+msgstr "1 %(verbose_name)s"
+
+#: word/admin.py:20
+msgid "successfully published."
+msgstr " berhasil di terbitkan."
+
+#: word/admin.py:33
+msgid "successfully moved to draft."
+msgstr " berhasil di pindahkan ke arsip"
+
+#: word/admin.py:46
+msgid "successfully moved to trash."
+msgstr " berhasil di pindahkan ke tong sampah."
+
+#: word/admin.py:51
+#, python-format
+msgid "Publish %(verbose_name_plural)s selected"
+msgstr "Terbitkan %(verbose_name_plural)s yang terpilih"
+
+#: word/admin.py:52
+#, python-format
+msgid "Move to archives %(verbose_name_plural)s selected"
+msgstr "Pindahkan ke arsip %(verbose_name_plural)s yang terpilih"
+
+#: word/admin.py:53
+#, python-format
+msgid "Move to trash %(verbose_name_plural)s selected"
+msgstr "Pindahkan ke tong sampah %(verbose_name_plural)s yang terpilih"
+
+#: word/admin.py:62
+msgid "Basic setting"
+msgstr "Pengaturan"
+
+#: word/admin.py:63
+msgid "Post Relationship"
+msgstr "Keterkaitan postingan"
+
+#: word/admin.py:124 word/forms.py:27
+msgid "Post"
+msgstr "Postingan"
+
+#: word/admin.py:124
+msgid "Posts"
+msgstr "Postingan"
+
+#: word/admin.py:125 word/templates/admin/post/change_form.html:156
+msgid "Category"
+msgstr "Katagory"
+
+#: word/admin.py:125 word/models.py:101
+msgid "Categories"
+msgstr "Katagory"
+
+#: word/admin.py:126 word/templates/admin/post/change_form.html:175
+msgid "Tag"
+msgstr "Lebel"
+
+#: word/apps.py:6
+msgid "Words"
+msgstr "Tulisan"
+
+#: word/forms.py:15
+msgid "Select Categories"
+msgstr "Pilih Katagory"
+
+#: word/forms.py:29 word/models.py:48
+msgid "Self Relationships"
+msgstr "Postingan"
+
+#: word/forms.py:77
+msgid "Add title here"
+msgstr "Tabahkan judul di sini"
+
+#: word/forms.py:78
+msgid "Add content here"
+msgstr "Tambahkan konten di sini"
+
+#: word/models.py:10
+msgid "Parent"
+msgstr ""
+
+#: word/models.py:11
+msgid "Slug"
+msgstr ""
+
+#: word/models.py:11 word/models.py:38
+msgid "A short label, generally used in URLs."
+msgstr "Sebuah label singkat, Yang umumnya digunakan pada URL."
+
+#: word/models.py:12 word/models.py:42
+msgid "Status"
+msgstr ""
+
+#: word/models.py:12
+msgid "Status is checked will be published."
+msgstr "Status yang tercentang akan di terbitkan."
+
+#: word/models.py:36
+msgid "Author"
+msgstr "Penulis"
+
+#: word/models.py:37
+msgid "Title"
+msgstr "Judul"
+
+#: word/models.py:43
+msgid "Allow comments"
+msgstr "Izinkan komentar"
+
+#: word/models.py:43
+msgid "Is checked will be actived on prontand."
+msgstr "Jika tercentang kan di terbitkan pada halaman depan"
+
+#: word/templates/admin/category/category_change_list.html:94
+msgid "Please correct the error below."
+msgid_plural "Please correct the errors below."
+msgstr[0] ""
+msgstr[1] ""
+
+#: word/templates/admin/category/category_change_list.html:167
+#, python-format
+msgid ""
+"\n"
+"                                            Add %(name)s\n"
+"                                        "
+msgstr ""
+
+#: word/templates/admin/post/change_form.html:205
+msgid "Update image"
+msgstr "Ubah gambar"
+
+#: word/templates/admin/post/change_form.html:207
+msgid "Add image"
+msgstr "Tambahkan gambar"
+
+#~ msgid "Publish selected item"
+#~ msgstr "Menerbitkan item yang dipilih"
+
+#, fuzzy
+#~| msgid "Position"
+#~ msgid "Posisi"
+#~ msgstr "Posisi"

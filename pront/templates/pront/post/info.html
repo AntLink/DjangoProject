@@ -1,0 +1,67 @@
+{% load i18n pront widget admin_static humanize %}
+<div class="container margin-top-20">
+    <div class="row">
+     {% if object.layout == 'right' %}
+            <div class="col-md-3">
+                {% widget_sidebar %}
+            </div>
+        {% endif %}
+        <div class="{% if object.layout == 'pull' %}col-md-12 {% else %}col-md-9{% endif %}">
+            <div class="margin-bottom-10">
+                <div class="news-v3 bg-color-light margin-bottom-30">
+                    <div class="easy-block-v1 ">
+
+
+                        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="item active">
+                                    <img src="/media/image/thumbnail/848x309/{{ object.image }}" class="img-responsive full-width">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="news-v3-in">
+                        <h2>{{ object.title }}</h2>
+                        {{ object.content|safe }}
+                    </div>
+
+                </div>
+                <br>
+                <!-- Blog Grid Tagds -->
+                <ul class="list-inline tags-v2">
+                    {{ object.tags_with_pront_li_tag|safe }}
+                </ul>
+
+                <!-- Blog Thumb v4 -->
+                <div class="margin-bottom-50">
+                    <div class="headline">
+                        <h2>Rekomendasi</h2>
+                    </div>
+
+                    <div class="row news-v2 margin-bottom-50">
+                        {% for related in object.self_relationships.all|dictsortreversed:"created_at"|slice:"3" %}
+                            <div class="col-sm-4 col-xs-6 sm-margin-bottom-30 ">
+                                <div class="news-v2-badge">
+                                    <a href="{% url 'post-detail' related.get_category_slug_first related.slug %}">
+                                        <img class="img-responsive" src="/media/image/thumbnail/256x144/{{ related.image }}" alt="{{ related.title }}">
+                                    </a>
+                                </div>
+                                <div class="news-v2-desc  bg-color-light">
+                                    <h5><a href="{% url 'post-detail' related.get_category_slug_first related.slug %}">{{ related.title }}</a></h5>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <!--/end row-->
+                </div>
+                <!-- End Blog Thumb v4 -->
+            </div>
+        </div>
+        {% if object.layout == 'left' %}
+            <div class="col-md-3">
+                {% widget_sidebar %}
+            </div>
+        {% endif %}
+    </div>
+</div>
