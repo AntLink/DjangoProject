@@ -272,7 +272,6 @@
         LayerSlider.initLayerSlider();
         {% if post == 'page' %}
             {% if cform == 'contact' %}
-
                 new GMaps({
                     div: '#map',
                     lat: -8.575149,
@@ -291,7 +290,6 @@
             {% endif %}
             {% for page_type in data %}
                 {% if page_type.page == 'contact' %}
-
                     new GMaps({
                         div: '#map',
                         lat: -8.575149,
@@ -306,7 +304,6 @@
                             '<p>Jl Udayana Eka Jaya No.1 Mataram</p>'
                         },
                     });
-
                 {% endif %}
             {% endfor %}
         {% endif %}
